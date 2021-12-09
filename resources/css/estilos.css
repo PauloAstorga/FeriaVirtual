@@ -182,9 +182,10 @@ img {
 }
 
 .form {
-    display:flex;
+    display: flex;
     flex-direction: column;
-    background:white;
+    background: white;
+    align-items: center;
 }
 /*-----*/
 
@@ -283,6 +284,9 @@ img {
 
 .product__information {
     padding: var(--mb-2-5);
+    column-count: 2;
+    column-gap: 40px;
+    column-span: all;
 }
 /*-----*/
 

@@ -1,0 +1,77 @@
+/*Login en todas las paginas*/
+.logo__image {
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
+.form__container {
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    width: 400px;
+    margin: 0 auto;
+    margin-top: var(--mb-3);
+    margin-bottom: var(--mb-3);
+}
+
+.login__title-text {
+    text-align: center;
+    margin-top: var(--mb-1);
+    margin-bottom: var(--mb-3);
+}
+
+.login__footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 0 var(--mb-1-5) 0;
+}
+
+.input {
+    border: none;
+}
+
+label {
+    margin: var(--mb-1) 0;
+}
+
+.input__container {
+    border-bottom: solid;
+    border-color: blueviolet;
+}
+
+.login__link {
+    margin-top: var(--mb-1);
+}
+
+.forgot-pwd {
+    align-self: end;
+}
+
+.submit-button {
+    margin: var(--mb-1) 0;
+    padding: var(--mb-1);
+    background: var(--first-color-lighter);
+    color: var(--first-color);
+    cursor: pointer;
+}
+
+.login__list {
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
+.login__social-image {
+    width: 2rem;
+    height: auto;
+    margin: var(--mb-0-5);
+}
+
+.input:focus-visible {
+    outline: none;
+}
+
+
+/*-----*/
