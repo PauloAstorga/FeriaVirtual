@@ -1,3 +1,13 @@
+:root {
+    /*Colores*/
+    --hue-color: 240;
+    --login-color: hsl(var(--hue-color), 10%, 72%);
+}
+
+body {
+    background: var(--login-color);
+}
+
 /*Login en todas las paginas*/
 .logo__image {
     display: flex;
@@ -6,13 +16,19 @@
 }
 
 .form__container {
-    background: white;
-    padding: 20px;
-    border-radius: 20px;
-    width: 400px;
     margin: 0 auto;
-    margin-top: var(--mb-3);
-    margin-bottom: var(--mb-3);
+    background: linear-gradient(180deg, var(--body-color),white);
+    margin-top: var(--header-height);
+    padding-top: var(--mb-1);
+    width: 60%;
+    border-radius: 1rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: none;
 }
 
 .login__title-text {
@@ -30,6 +46,7 @@
 
 .input {
     border: none;
+    background: none;
 }
 
 label {
@@ -73,5 +90,15 @@ label {
     outline: none;
 }
 
+.recover__disclaimer {
+    margin: 0 var(--mb-2);
+}
 
+.back__button {
+    margin-right: var(--mb-1);
+}
+
+.back__link {
+    color: var(--body-color);
+}
 /*-----*/

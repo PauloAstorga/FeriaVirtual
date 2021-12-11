@@ -1,13 +1,13 @@
-/* Google Fonts*/
+/*======Google Fonts======*/
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-/*-----*/
+/*==========*/
 
-/*Variables*/
+/*======Variables======*/
 :root {
     --header-height: 3rem;
 
     /*Colores*/
-    --hue-color: 90;
+    --hue-color: 240;
 
     /*Modo de colores*/
     --first-color: hsl(var(--hue-color), 65%, 45%);
@@ -20,6 +20,10 @@
     --input-color: hsl(var(--hue-color), 70%, 96%);
     --body-color: hsl(var(--hue-color), 60%, 85%);
     --container-color: #FFF;
+    --header-color: hsl(var(--hue-color), 27%, 18%);
+    --header-title-color: hsl(var(--hue-color), 27%, 70% );
+    --footer-color: hsl(var(--hue-color), 17%, 35%);
+    --login-color: hsl(var(--hue-color), 10%, 72%);
 
     /*Fuente y tipografia*/
     --body-font: 'Poppins', sans-serif;
@@ -52,7 +56,7 @@
     --z-fixed: 100;
     --z-modal: 1000;
 }
-/*-----*/
+/*==========*/
 
 /*Fuente para dispositivos grandes*/
 
@@ -67,9 +71,9 @@
         --smaller-font-size: .813rem;
     }
 }
-/*-----*/
+/*==========*/
 
-/*Base*/
+/*======Base======*/
 
 * {
     box-sizing: border-box;
@@ -107,22 +111,69 @@ img {
     height: auto;
 }
 
-/*-----*/
+header {
+    background: var(--header-color);
+}
+/*==========*/
 
-/*Header nav*/
+/*======Header nav======*/
 
 .header {
-    background: linear-gradient(45deg, var(--first-color), var(--first-color-lighter));
-    position: sticky;
-    top: 0;
     width: 100%;
+    position: fixed;
+    top: 0;
+    left:0;
     z-index: var(--z-fixed);
 }
 
 .nav {
-    display:flex;
+    max-width: 968px;
+    height: var(--header-height);
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: space-around;
+}
+
+/*==Menu responsivo==*/
+@media screen and (max-width: 760px) {
+    .nav__menu {
+        z-index: var(--z-modal);
+        position: fixed;
+        left: -100%;
+        top: 0;
+        width: 50%;
+        height: 50%;
+        background: var(--header-color);
+        padding: 2rem 1.5rem 4rem;
+        box-shadow: 7px 6px 4px rgb(0 0 0 / 15%);
+        border-radius: 0 1.5rem 1.5rem 0;
+        transition: .3s;
+        transition-timing-function: cubic-bezier(0.53, 0.69, 0.21, 1.28);
+    }
+
+    .nav__sublist {
+        position: fixed;        
+        left: 0;
+        top: -100%;
+        width: 50%;
+        height: 50%;
+        background: var(--header-color);
+        padding: 2rem 1.5rem 4rem;
+        box-shadow: 7px 6px 4px rgb(0 0 0 / 15%);
+        border-radius: 0 1.5rem 1.5rem 0;
+    }
+
+
+
+    .nav__list {
+        flex-direction: column;
+    }
+
+}
+/*==---==*/
+
+.nav__title {
+    margin-top: var(--mb-1-5);
 }
 
 #nav__image {
@@ -138,38 +189,30 @@ img {
 
 .nav__list {
     display: flex;
-    align-items: center;
-    padding: 0 var(--mb-1);
-}
-
-.nav__sublist,.nav__subdeliver {
-    padding: var(--mb-1-5);
-    position: absolute;
-    left: -200%;
-    background: var(--first-color);
-    z-index: var(--z-back);
-    transition: left 0.3s;
-    border-radius: var(--mb-2);
 }
 
 .nav__item {
-    padding: 0 var(--mb-1-5);
+    padding: var(--mb-0-25) var(--mb-0-5);
 }
 
 .nav__login {
-    padding: 0 var(--mb-1);
+    padding: var(--mb-0-25);
 }
 
 .nav__opensubmenu:hover > .nav__sublist {
-    transition: left 0.3s ;
+    transition: .3s;
+    transition-timing-function: cubic-bezier(0.53, 0.69, 0.21, 1.28);
     z-index: var(--z-fixed);
-    left:36%;
+    left:45%;
+    top:0;
 }
 
 .nav__deliver:hover > .nav__subdeliver  {
-    transition: left 0.3s ;
+    transition: .3s;
+    transition-timing-function: cubic-bezier(0.53, 0.69, 0.21, 1.28);
     z-index: var(--z-fixed);
     left:45%;
+    top:0;
 }
 
 .nav__link:hover {
@@ -181,18 +224,221 @@ img {
     top:-200%;
 }
 
-.form {
-    display: flex;
-    flex-direction: column;
-    background: white;
-    align-items: center;
+.nav__logo,
+.nav__toggle {
+    color: var(--header-title-color);
+    font-weight: var(--font-medium);
 }
-/*-----*/
 
-/*Footer*/
+.nav__toggle {
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.nav__toggle:hover {
+    color: var(--first-color);
+}
+
+.nav__close {
+    position: absolute;
+    left: .5rem;
+    top: .5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--first-color);
+}
+
+.nav__close:hover {
+    color: var(--first-color-alt);
+}
+
+.nav__subitem {
+    padding: var(--mb-1) 0;
+}
+
+.nav__title {
+    color: var(--text-color-light);
+}
+
+.nav__link {
+    color: var(--first-color-lighter);
+}
+
+.show-menu {
+    left: 0%;
+}
+/*==========*/
+
+/*======Main======*/
+    /*Aside social media*/
+
+    .main__aside {
+        background: var(--header-color);
+        z-index: var(--z-tooltip);
+        position: fixed;
+        left: 0;
+        top: 30%;
+        border-radius: 0 .5rem .5rem 0;
+        transition: .3s;
+        padding-top: var(--mb-1-5);
+    }
+
+    .fa-2x {
+        font-size: 1em !important;
+    }
+
+    .main__item {
+        width: 2rem;
+        height: 2rem;
+        line-height: 2rem;
+        margin: 1rem;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 50%;
+        border: 1px solid #D8E2DC;
+        transition: all 0.5s ease;
+    }
+
+    .fa {
+        color: #D8E2DC;
+        transition: all 0.5s ease;
+    }
+    /* Facebook */
+    .main__item:hover.facebook{
+        border: 1px solid #3b5998;
+        box-shadow: 0 0 15px #3b5998;
+        transition: all 0.5s ease;
+    }
+
+    .main__item:hover .fa-facebook {
+        color: #3b5998;
+        text-shadow: 0 0 15px #3b5998;
+        transition: all 0.5s ease;
+    }
+    /*-----*/
+
+    /* Twitter */
+    .main__item:hover.twitter {
+        border: 1px solid #00aced;
+        box-shadow: 0 0 15px #00aced;
+        transition: all 0.5s ease;
+    }
+      
+    .main__item:hover .fa-twitter {
+        color: #00aced;
+        text-shadow: 0 0 15px #00aced;
+        transition: all 0.5s ease;
+    }
+    /*-----*/
+    
+    /* Instagram */
+    .main__item:hover.instagram {
+        border: 1px solid #bc2a8d;
+        box-shadow: 0 0 15px #bc2a8d;
+        transition: all 0.5s ease;
+    }
+      
+    .main__item:hover .fa-instagram {
+        color: #bc2a8d;
+        text-shadow: 0 0 15px #bc2a8d;
+        transition: all 0.5s ease;
+    }
+    /*-----*/
+
+    /* Google */
+    .main__item:hover.google {
+        border: 1px solid #dd4b39;
+        box-shadow: 0 0 15px #dd4b39;
+        transition: all 0.5s ease;
+      }
+      
+    .main__item:hover .fa-google {
+        color: #dd4b39;
+        text-shadow: 0 0 15px #dd4b39;
+        transition: all 0.5s ease;
+    }
+    /*-----*/
+
+    /* Whatsapp */
+    .main__item:hover.whatsapp {
+        border: 1px solid #4dc247;
+        box-shadow: 0 0 15px #4dc247;
+        transition: all 0.5s ease;
+    }
+      
+    .main__item:hover .fa-whatsapp {
+        color: #4dc247;
+        text-shadow: 0 0 15px #4dc247;
+        transition: all 0.5s ease;
+    }
+    /*-----*/
+
+    /*Show y hide aside*/
+    .show-aside,.hide-aside {
+        cursor: pointer;
+    }
+    /*Estos son los selectores de icono del ojito para mostrar y esconder*/
+    #show-aside {
+        background: var(--header-color);
+        z-index: var(--z-back);
+        position: fixed;
+        left: var(--mb-1);
+        top: 30.6%;
+        width: 2rem;
+        height: 2rem;
+        line-height: 2rem;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 50%;
+        border: 1px solid #D8E2DC;
+        transition: all 0.5s ease;
+    }
+    
+    #hide-aside {
+        background: var(--header-color);
+        z-index: var(--z-fixed);
+        position: fixed;
+        left: var(--mb-1);
+        top: 30.6%;
+        width: 2rem;
+        height: 2rem;
+        line-height: 2rem;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 50%;
+        border: 1px solid #D8E2DC;
+        transition: all 0.5s ease;
+    }
+        /*Esto esconde el aside*/
+    .hide__aside {
+        left: -100%;
+    }
+        /*Esto es para el icono del ojo del aside :)*/
+    .hide__eye {
+        display:none;
+    }
+        /*-----*/
+    .eye__trail {
+        background: var(--header-color);
+        z-index: var(--z-back);
+        position: fixed;
+        left: 0;
+        top: 32.5%;
+        width: 2rem;
+        height: .6rem;
+        cursor: pointer;
+        transition: all 0.5s ease;
+    }
+    /*-----*/
+
+
+
+/*==========*/
+
+/*======Footer======*/
 
 .footer {
-    background: linear-gradient(180deg, var(--first-color), var(--first-color-alt));
+    background: var(--footer-color);
 }
 
 .footer__container {
@@ -203,16 +449,24 @@ img {
     padding: var(--mb-3);
 }
 
-/*-----*/
+.footer__link {
+    color: var(--text-color-light);
+}
 
-/*a tag button*/
+.social-ul-logo {
+    color: var(--body-color)
+}
+
+/*==========*/
+
+/*======Tag button======*/
 .button {
-    display: inline-block;
+    display: flex;
     background-color: var(--first-color);
     color: #FFF;
-    padding: 1rem;
     border-radius: .5rem;
     font-weight: var(--font-medium);
+    align-items: center;
 }
 
 .button:hover {
@@ -229,9 +483,13 @@ img {
     display: inline-flex;
     align-items: center;
 }
-/*-----*/
+/*==========*/
 
-/*Banner*/
+/*======Banner======*/
+
+.main__banner {
+    margin-top: var(--header-height);
+}
 
 .banner__image {
     width:100%;
@@ -264,43 +522,66 @@ img {
     width:100%;
     text-align:center;
 }
-/*-----*/
+/*==========*/
 
-/*Main index*/
+/*======Main home======*/
 
 .home__information {
     display:flex;
     padding: var(--mb-2-5);
+    flex-direction: column;
+}
+
+.home-info-container {
+    margin: 0 var(--mb-2-5);
 }
 
 .product__container {
-    display:flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     align-content: center;
+    margin: var(--mb-2-5);
 }
 
+.home-logo {
+    width: 50%;
+    align-self: center;
+}
 
 .product__information {
     padding: var(--mb-2-5);
-    column-count: 2;
+    column-count: 1;
     column-gap: 40px;
     column-span: all;
 }
-/*-----*/
 
-/*Media Query (responsividad)*/
+.product__image {
+    width: 50%;
+}
+/*==========*/
 
-@media screen and (max-width:989px) {
+/*======Media Query (responsividad)======*/
+
+@media screen and (max-width:800px) {
     
 }
 
-@media screen and (min-width:400px) {
+@media screen and (min-width:360px) {
+    .button {
+        display: flex;
+        background-color: var(--first-color);
+        color: #FFF;
+        border-radius: .5rem;
+        font-weight: var(--font-medium);
+        align-items: center;
+    }
 
+    
 }
 
 @media screen and (max-width: 680px){
 
 }
-/*-----*/
+/*==========*/

@@ -7,8 +7,9 @@
 
     <link rel="stylesheet" type="text/css" href="resources/css/estilos.css" />
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="resources/images/logo_icono.ico" /> 
-    <script src="resources/js/jquery-3.6.0.min.js"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="resources/images/logo_icono.ico" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> 
+    
 
     <title>Feria Virtual</title>
 </head>
@@ -19,11 +20,18 @@
         <nav class="nav container">
             
             <div class="nav__logo-container">
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="uil uil-list-ul"></i>
+                </div>
+                    
                 <img alt="FeriaLogo" id="nav__image" class="nav__logo" src="resources/images/logo.png">
-                    <a href="#" class="nav__logo">Feria Virtual</a>
+                <a href="#" class="nav__logo">Feria Virtual</a>
             </div>
 
-            <div class="nav__menu">
+            <div class="nav__menu" id="nav-menu">
+                <h3 class="nav__title">
+                    Feria Virtual
+                </h3>
                 <ul class="nav__list">
                     <li class="nav__item">
                         <a href="#" class="nav__link">
@@ -33,7 +41,7 @@
 
                     <li class="nav__item nav__opensubmenu">
                         <a href="#" class="nav__link">
-                            <i class="uil uil-shop"></i> Catálogo
+                            <i class="uil uil-shop"></i> Catálogo <i class="uil uil-arrow-right"></i>
                             <ul class="nav__sublist nav__subcatalogue">
                                 <li class="nav__subitem">
                                     <a href="#" class="nav__link">
@@ -58,15 +66,15 @@
 
                     <li class="nav__item nav__deliver">
                         <a href="#" class="nav__link">
-                            <i class="uil uil-truck"></i> Entregas
+                            <i class="uil uil-truck"></i> Entregas <i class="uil uil-arrow-right"></i>
                             <ul class="nav__sublist nav__subdeliver">
                                 <li class="nav__subitem">
                                     <a href="#" class="nav__link">
-                                        <i class="uil uil-parcel"></i> Orden de Seguimiento
+                                        <i class="uil uil-parcel"></i> Orden de Seguimiento 
                                     </a>                                    
                                 </li>
 
-                                <li>
+                                <li class="nav__subitem">
                                     <a href="#" class="nav__link">
                                         <i class="uil uil-truck"></i> Nuestros Proveedores
                                     </a>                                    
@@ -75,26 +83,14 @@
                         </a>
                     </li>
                 </ul>
+
+                <i class="uil uil-times nav__close" id="nav-close"></i>
             </div>
 
             <div class="nav__login">
                 <a href="WEB/login/login.html" id="login__button" class="nav__item button">
                     <i class="uil uil-user nav__login"></i> Conectarse
                 </a>
-                
-                <a href="WEB/login/crear-cuenta.html" id="login__button" class="nav__item button">
-                    <i class="uil uil-user-plus nav__create"></i> Crear Cuenta
-                </a>
-
-                <div class="nav__login-responsive">
-                    <form action="" class="form">
-                        <input class="input" type="email" placeholder="Correo">
-                        <input class="input" type="password" placeholder="******">
-                        <input class="input" type="submit" value="Conectarse">
-                        <a class="login-link" href="WEB/login/crear-cuenta.html">Crear Cuenta</a>
-                        <a class="login-link" href="WEB/login/recuperar-cuenta.html">Recuperar Contraseña</a>
-                    </form>
-                </div>
             </div>
             
         </nav>
@@ -102,6 +98,44 @@
 
     <main class="main">
 
+        <!--Aside con redes sociales-->
+        <aside class="main__aside" id="main-aside">
+            <div class="eye__trail"></div>
+            <i id="show-aside" class="uil uil-eye"></i>
+            <i id="hide-aside" class="uil uil-eye-slash"></i>
+            <ul class="main__list">
+                <li class="main__item facebook">
+                    <a href="#" class="main__link">
+                        <i class="fa fa-facebook fa-2x" aria-hidden="true"></i>
+                    </a>
+                </li>
+
+                <li class="main__item instagram">
+                    <a href="#" class="main__link">
+                        <i class="fa fa-instagram fa-2x" aria-hidden="true"></i>
+                    </a>
+                </li>
+
+                <li class="main__item twitter">
+                    <a href="#" class="main__link">
+                        <i class="fa fa-twitter fa-2x" aria-hidden="true"></i>
+                    </a>
+                </li>
+
+                <li class="main__item google">
+                    <a href="#" class="main__link">
+                        <i class="fa fa-google fa-2x" aria-hidden="true"></i>
+                    </a>
+                </li>
+
+                <li class="main__item whatsapp">
+                    <a href="#" class="main__link">
+                        <i class="fa fa-whatsapp fa-2x" aria-hidden="true"></i>
+                    </a>
+                </li>
+                
+            </ul>
+        </aside>
         <!--Banner-->
         <section class="main__banner">
             <div class="carousel__banner fade">
@@ -137,7 +171,6 @@
                     <h3 class="product__title">Product Title</h3>
                     <p class="product_description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus animi soluta amet itaque alias, quam labore expedita ducimus reiciendis ratione.</p>
                     <i class="uil uil-shopping-bag"></i> 1500 CLP
-                    <i class="uil uil-heart"></i> Favorito
                 </div>
 
                 <div class="product__container">
@@ -145,7 +178,6 @@
                     <h3 class="product__title">Product Title</h3>
                     <p class="product_description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus animi soluta amet itaque alias, quam labore expedita ducimus reiciendis ratione.</p>
                     <i class="uil uil-shopping-bag"></i> 1500 CLP
-                    <i class="uil uil-heart"></i> Favorito
                 </div>
 
                 <div class="product__container">
@@ -153,7 +185,6 @@
                     <h3 class="product__title">Product Title</h3>
                     <p class="product_description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus animi soluta amet itaque alias, quam labore expedita ducimus reiciendis ratione.</p>
                     <i class="uil uil-shopping-bag"></i> 1500 CLP
-                    <i class="uil uil-heart"></i> Favorito
                 </div>
 
                 <div class="product__container">
@@ -161,7 +192,6 @@
                     <h3 class="product__title">Product Title</h3>
                     <p class="product_description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus animi soluta amet itaque alias, quam labore expedita ducimus reiciendis ratione.</p>
                     <i class="uil uil-shopping-bag"></i> 1500 CLP
-                    <i class="uil uil-heart"></i> Favorito
                 </div>
 
                 <div class="product__container">
@@ -169,7 +199,6 @@
                     <h3 class="product__title">Product Title</h3>
                     <p class="product_description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus animi soluta amet itaque alias, quam labore expedita ducimus reiciendis ratione.</p>
                     <i class="uil uil-shopping-bag"></i> 1500 CLP
-                    <i class="uil uil-heart"></i> Favorito
                 </div>
 
                 <div class="product__container">
@@ -177,7 +206,6 @@
                     <h3 class="product__title">Product Title</h3>
                     <p class="product_description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus animi soluta amet itaque alias, quam labore expedita ducimus reiciendis ratione.</p>
                     <i class="uil uil-shopping-bag"></i> 1500 CLP
-                    <i class="uil uil-heart"></i> Favorito
                 </div>
                 <!---->
             </section>
@@ -192,7 +220,7 @@
 
                 <div class="footer__information">
                     <h1 class="footer__title">Feria Virtual</h1>
-                    <span class="footer__subtitle">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi saepe dolorum quae voluptatibus iure molestias?</span>
+                    <span class="footer__subtitle">¡Un lugar para ti!</span>
                 </div>
 
                 <ul class="footer__links">
@@ -218,20 +246,22 @@
 
                 <div class="footer__social">
                     <a href="#" class="footer__social-link" target="_blank">
-                        <i class="uil uil-facebook"></i>
+                        <i class="uil uil-facebook social-ul-logo"></i>
                     </a>
 
                     <a href="#" class="footer__social-link" target="_blank">
-                        <i class="uil uil-twitter"></i>
+                        <i class="uil uil-twitter social-ul-logo"></i>
                     </a>
 
                     <a href="#" class="footer__social-link" target="_blank">
-                        <i class="uil uil-instagram-alt"></i>
+                        <i class="uil uil-instagram-alt social-ul-logo"></i>
                     </a>
                 </div>
             </div>
         </div>
     </footer>
+    <script src="resources/js/jquery-3.6.0.min.js"></script>
+    <script src="resources/js/slide.js"></script>   
     <script src="resources/js/main.js"></script>
 </body>
 </html>
