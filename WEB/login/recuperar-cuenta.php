@@ -7,6 +7,8 @@
 
     <link rel="stylesheet" type="text/css" href="../../resources/css/estilos.css" />
     <link rel="stylesheet" type="text/css" href="../../resources/css/login.css" />
+    <link rel="stylesheet" type="text/css" href="../../resources/css/animations.css" />
+    <link rel="stylesheet" type="text/css" href="../../resources/css/hover.css" />
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css" />
     <link rel="shortcut icon" type="image/x-icon" href="../../resources/images/logo_icono.ico" /> 
     <script src="../../resources/js/jquery-3.6.0.min.js"></script>
@@ -14,7 +16,7 @@
     <title>Feria Virtual</title>
 </head>
 
-<body>
+<body id="body">
     
     <header class="header" id="header">
         <nav class="nav container">
@@ -25,7 +27,7 @@
                 </div>
                     
                 <img alt="FeriaLogo" id="nav__image" class="nav__logo" src="../../resources/images/logo.png">
-                <a href="../../index.html#" class="nav__logo">Feria Virtual</a>
+                <a href="#" class="nav__logo">Feria Virtual</a>
             </div>
 
             <div class="nav__menu" id="nav-menu">
@@ -44,19 +46,19 @@
                             <i class="uil uil-shop"></i> Catálogo <i class="uil uil-arrow-right"></i>
                             <ul class="nav__sublist nav__subcatalogue">
                                 <li class="nav__subitem">
-                                    <a href="#" class="nav__link">
+                                    <a href="../catalogo/frutos_secos.html" class="nav__link">
                                         <i class="uil uil-rainbow"></i> Frutos Secos
                                     </a>
                                 </li>
                                     
                                 <li class="nav__subitem">
-                                    <a href="WEB/catalogo/aceitunas.html" class="nav__link">
+                                    <a href="../catalogo/frutas.html" class="nav__link">
                                         <i class="uil uil-wind-sun"></i> Frutas
                                     </a>
                                 </li>
 
                                 <li class="nav__subitem">
-                                    <a href="#" class="nav__link">
+                                    <a href="../catalogo/verduras.html" class="nav__link">
                                         <i class="uil uil-cloud-showers-heavy"></i> Verduras
                                     </a>
                                 </li>
@@ -69,13 +71,13 @@
                             <i class="uil uil-truck"></i> Entregas <i class="uil uil-arrow-right"></i>
                             <ul class="nav__sublist nav__subdeliver">
                                 <li class="nav__subitem">
-                                    <a href="#" class="nav__link">
+                                    <a href="../entregas/orden-seguimiento.html" class="nav__link">
                                         <i class="uil uil-parcel"></i> Orden de Seguimiento 
                                     </a>                                    
                                 </li>
 
                                 <li class="nav__subitem">
-                                    <a href="#" class="nav__link">
+                                    <a href="../entregas/nuestros-proveedores.html" class="nav__link">
                                         <i class="uil uil-truck"></i> Nuestros Proveedores
                                     </a>                                    
                                 </li>
@@ -86,13 +88,13 @@
 
                 <i class="uil uil-times nav__close" id="nav-close"></i>
             </div>
-            
-            <div class="back__button">
-                <a href="../../index.html" class="back__link">
+
+            <div class="back__button slide-in-right">
+                <a href="login.html" id="back__button" class="nav__item back__link button">
                     <i class="uil uil-left-arrow-from-left"></i> Volver
                 </a>
             </div>
-
+            
         </nav>
     </header>
 

@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" type="text/css" href="../../resources/css/estilos.css" />
-    <link rel="stylesheet" type="text/css" href="../../resources/css/login.css" />
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../resources/images/logo_icono.ico" /> 
-    <script src="../../resources/js/jquery-3.6.0.min.js"></script>
-
+    <link rel="stylesheet" type="text/css" href="../../resources/css/animations.css" />
+    <link rel="stylesheet" type="text/css" href="../../resources/css/hover.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../resources/images/logo_icono.ico" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> 
+    
     <title>Feria Virtual</title>
 </head>
 
@@ -25,7 +26,7 @@
                 </div>
                     
                 <img alt="FeriaLogo" id="nav__image" class="nav__logo" src="../../resources/images/logo.png">
-                <a href="../../index.html#" class="nav__logo">Feria Virtual</a>
+                <a href="#" class="nav__logo">Feria Virtual</a>
             </div>
 
             <div class="nav__menu" id="nav-menu">
@@ -34,7 +35,7 @@
                 </h3>
                 <ul class="nav__list">
                     <li class="nav__item">
-                        <a href="../../index.html#home" class="nav__link">
+                        <a href="#" class="nav__link">
                             <i class="uil uil-home nav__icon"></i> Home
                         </a>
                     </li>
@@ -50,7 +51,7 @@
                                 </li>
                                     
                                 <li class="nav__subitem">
-                                    <a href="WEB/catalogo/aceitunas.html" class="nav__link">
+                                    <a href="WEB/catalogo/frutas.php" class="nav__link">
                                         <i class="uil uil-wind-sun"></i> Frutas
                                     </a>
                                 </li>
@@ -87,7 +88,7 @@
                 <i class="uil uil-times nav__close" id="nav-close"></i>
             </div>
 
-            <div class="nav__login">
+            <div class="nav__login bounce-in-top">
                 <a href="WEB/login/login.html" id="login__button" class="nav__item button">
                     <i class="uil uil-user nav__login"></i> Conectarse
                 </a>
@@ -98,62 +99,61 @@
 
     <main class="main">
 
-        <div class="form__container">
+        <section class="main__container">
 
-            <div class="login__title">
-                <h1 class="login__title-text">Login</h1>
-            </div>
+        <!--Php-->
+            <!--Cada uno de estos se saca de la bd-->
+            <?php
 
-            <form actioN="" class="form">
+                include '../../resources/php/db.php';
 
-                <label for="correo">Correo</label>
-                <div class="input__container">
-                    <i class="uil uil-user"></i>
-                    <input id="correo" class="input" type="email" placeholder="mail@example.com">
-                </div>
+                $categoria = 1; /*Verdura es cod 1 y es pa testear OwO*/
 
-                <label for="contrasena">Contraseña</label>
-                <div class="input__container">
-                    <i class="uil uil-key-skeleton-alt"></i>
-                    <input id="contrasena" class="input" type="password" placeholder="********">
-                </div>
+                $consulta = "SELECT * FROM producto where codigo_tipo_categoria = ? ";
+                $resultado = mysqli_prepare($conexion, $consulta);
 
-                <a href="recuperar-cuenta.html" class="login__link forgot-pwd">¿Olvidó su contraseña?</a>
+                if (!$resultado) {
+                    echo "Error".mysqli_error($conexion);
+                }
 
-                <input id="conectarse" class="input submit-button" type="submit" value="Conectarse">
-            </form>
+                $tabien = mysqli_stmt_bind_param($resultado, "i", $categoria);
 
-            <div class="login__footer">
-                <span class="login__subtitle">O conectate utilizando</span>
-                <div class="login__social">
+                $tabien = mysqli_stmt_execute($resultado);
 
-                    <ul class="login__list">
-                        <li class="login__item">
-                            <a href="#" target="_blank" class="login__link">
-                                <img class="login__social-image" alt="google logo" src="../../resources/images/social/g-login.png">
-                            </a>
-                        </li>
+                if (!$tabien) {
+                    echo "Error";
+                } else {
 
-                        <li class="login__item">
-                            <a href="#" target="_blank" class="login__link">
-                                <img class="login__social-image" alt="facebook logo" src="../../resources/images/social/f-login.png">
-                            </a>
-                        </li>
+                    $tabien = mysqli_stmt_bind_result($resultado, $r_cod, $r_codcat, $r_nombre, $r_descrip, $r_precio, $r_imagen, $r_cantidad, $r_codpues );
 
-                        <li class="login__item">
-                            <a href="#" target="_blank" class="login__link">
-                                <img class="login__social-image" alt="twitter logo" src="../../resources/images/social/t-login.png">
-                            </a>
-                        </li>
-                    </ul>
-                    
-                </div>
-
-                <a href="crear-cuenta.html" class="login__link create-acc">Crea una cuenta</a>
-            </div>
-
-        </div>
-
+                    while( mysqli_stmt_fetch($resultado) ){
+                        ?>
+<!---->
+<!--==========Codigo HTML==========-->
+                        <div class="product__row">
+                            <div class="product__container producto">
+                                <div class="product__image">
+                                    <img id="imagen" class="product-image" alt="imagen producto" src="<?php echo $r_imagen.""; ?>">
+                                </div>
+                                <div class="product__content">
+                                    <h2 class="product__title"><?php echo $r_nombre.""; ?></h2>
+                                    <span class="product__subtitle"><?php echo $r_precio.""; ?></span>
+                                    <p class="product__description">
+                                        <?php echo  $r_descrip.""; ?>
+                                    </p>
+                                    <a href="#" class="buy-item">
+                                        <i class="uil uil-shopping-bag"></i>
+                                    </a>
+                                </div>                
+                            </div>
+                        </div>
+<!--====================-->
+                        <?php
+                    }
+                }
+            ?>
+<!--PhpFin-->
+        </section>
     </main>
 
     <footer class="footer">
@@ -202,7 +202,8 @@
             </div>
         </div>
     </footer>
-    <script src="../../resources/js/jquery-3.6.0.min.js"></script>    
+    <script src="../../resources/js/jquery-3.6.0.min.js"></script>
+    <script src="../../resources/js/slide.js"></script>   
     <script src="../../resources/js/main.js"></script>
 </body>
 </html>

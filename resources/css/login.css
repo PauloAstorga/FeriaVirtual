@@ -2,6 +2,21 @@
     /*Colores*/
     --hue-color: 240;
     --login-color: hsl(var(--hue-color), 10%, 72%);
+
+    /*Fuente y tipografia*/
+    --body-font: 'Poppins', sans-serif;
+
+    --big-font-size: 2rem;
+    --h1-font-size: 1.5rem;
+    --h2-font-size: 1.25rem;
+    --h3-font-size: 1.125rem;
+    --normal-font-size: .938rem;
+    --small-font-size: .813rem;
+    --smaller-font-size: .75rem;
+
+    /*Peso de la fuente*/
+    --font-medium: 500;
+    --font-semi-bold: 600;
 }
 
 body {
@@ -17,7 +32,6 @@ body {
 
 .form__container {
     margin: 0 auto;
-    background: linear-gradient(180deg, var(--body-color),white);
     margin-top: var(--header-height);
     padding-top: var(--mb-1);
     width: 60%;
@@ -72,6 +86,7 @@ label {
     background: var(--first-color-lighter);
     color: var(--first-color);
     cursor: pointer;
+    border-radius: 3rem;
 }
 
 .login__list {
@@ -100,5 +115,20 @@ label {
 
 .back__link {
     color: var(--body-color);
+}
+
+#back__button {
+    padding: var(--mb-0-25) var(--mb-0-5);
+    color: #FFF;
+}
+
+.remember {
+    border-bottom: none;
+}
+
+.input {
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    color: var(--first-color);
 }
 /*-----*/

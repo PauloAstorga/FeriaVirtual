@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" type="text/css" href="../../resources/css/estilos.css" />
-    <link rel="stylesheet" type="text/css" href="../../resources/css/login.css" />
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../resources/images/logo_icono.ico" /> 
-    <script src="../../resources/js/jquery-3.6.0.min.js"></script>
-
+    <link rel="stylesheet" type="text/css" href="../../resources/css/animations.css" />
+    <link rel="stylesheet" type="text/css" href="../../resources/css/hover.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../resources/images/logo_icono.ico" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> 
+    
     <title>Feria Virtual</title>
 </head>
 
@@ -25,7 +26,7 @@
                 </div>
                     
                 <img alt="FeriaLogo" id="nav__image" class="nav__logo" src="../../resources/images/logo.png">
-                <a href="../../index.html#" class="nav__logo">Feria Virtual</a>
+                <a href="#" class="nav__logo">Feria Virtual</a>
             </div>
 
             <div class="nav__menu" id="nav-menu">
@@ -34,7 +35,7 @@
                 </h3>
                 <ul class="nav__list">
                     <li class="nav__item">
-                        <a href="../../index.html#home" class="nav__link">
+                        <a href="#" class="nav__link">
                             <i class="uil uil-home nav__icon"></i> Home
                         </a>
                     </li>
@@ -50,7 +51,7 @@
                                 </li>
                                     
                                 <li class="nav__subitem">
-                                    <a href="WEB/catalogo/aceitunas.html" class="nav__link">
+                                    <a href="WEB/catalogo/frutas.php" class="nav__link">
                                         <i class="uil uil-wind-sun"></i> Frutas
                                     </a>
                                 </li>
@@ -86,81 +87,50 @@
 
                 <i class="uil uil-times nav__close" id="nav-close"></i>
             </div>
-            
-            <div class="back__button">
-                <a href="../../index.html" class="back__link">
-                    <i class="uil uil-left-arrow-from-left"></i> Volver
+
+            <div class="nav__login bounce-in-top">
+                <a href="WEB/login/login.html" id="login__button" class="nav__item button">
+                    <i class="uil uil-user nav__login"></i> Conectarse
                 </a>
             </div>
-
+            
         </nav>
     </header>
 
     <main class="main">
+        <section class="main__container">
+            <!--Muestra todos los productos-->
+            <?php
 
-        <div class="form__container">
+                include '../../resources/php/db.php';
 
-            <div class="login__title">
-                <h1 class="login__title-text">¡Crea tu cuenta!</h1>
-            </div>
+                $consulta = "SELECT * FROM producto";
+                $resultado = mysqli_query($conexion, $consulta);
+                
+                while ($fila = mysqli_fetch_row($resultado)){ ?>
+                        <div class="product__row">
+                            <div class="product__container producto">
+                                <div class="product__image">
+                                    <img id="imagen" class="product-image" alt="imagen producto" src="<?php echo $fila[5].""; ?>">
+                                </div>
+                                <div class="product__content">
+                                    <h2 class="product__title"><?php echo $fila[2].""; ?></h2>
+                                    <span class="product__subtitle"><?php echo $fila[4].""; ?></span>
+                                    <p class="product__description">
+                                        <?php echo  $fila[3].""; ?>
+                                    </p>
+                                    <span class="product__source">Puesto: <?php echo $fila[7].""; ?></span>
+                                </div>                
+                            </div>
+                        </div>
+                    <?php 
+                }
 
-            <form actioN="" class="form">
+                mysqli_close($conexion);
 
-                <label for="nombre">Nombre</label>
-                <div class="input__container">
-                    <i class="uil uil-elipsis-double-v-alt"></i>
-                    <input id="noombre" class="input" type="text" placeholder="Nombre">
-                </div>
-
-                <label for="apellido">Apellido</label>
-                <div class="input__container">
-                    <i class="uil uil-document-layout-left"></i>
-                    <input id="apellido" class="input" type="text" placeholder="Apellido">
-                </div>
-
-                <label for="correo">Correo</label>
-                <div class="input__container">
-                    <i class="uil uil-user"></i>
-                    <input id="correo" class="input" type="email" placeholder="mail@example.com">
-                </div>
-
-                <label for="contrasena">Contraseña</label>
-                <div class="input__container">
-                    <i class="uil uil-key-skeleton-alt"></i>
-                    <input id="contrasena" class="input" type="password" placeholder="********">
-                </div>
-
-                <label for="contrasena2">Repita su Contraseña</label>
-                <div class="input__container">
-                    <i class="uil uil-key-skeleton-alt"></i>
-                    <input id="contrasena2" class="input" type="password" placeholder="********">
-                </div>
-
-                <label for="comuna">Ciudad</label>
-                <div class="input__container">
-                    <i class="uil uil-location-pin-alt"></i>
-                    <input id="ciudad" class="input" type="text" placeholder="Seleccione una...">
-                </div>
-
-                <label for="comuna">Comuna</label>
-                <div class="input__container">
-                    <i class="uil uil-university"></i>
-                    <input id="comuna" class="input" type="text" placeholder="Seleccione una...">
-                </div>
-
-                <label for="tipo_cta">Tipo de Cuenta</label>
-                <div class="input__container">
-                    <i class="uil uil-user-arrows"></i>
-                    <input id="tipo_cta" class="input" type="text" placeholder="Selecciona una...">
-                </div>
-
-                <input id="crear" class="input submit-button" type="submit" value="Crear Cuenta">
-            </form>
-
-            
-
-        </div>
-
+                
+            ?>
+        </section>
     </main>
 
     <footer class="footer">
@@ -209,7 +179,8 @@
             </div>
         </div>
     </footer>
-    <script src="../../resources/js/jquery-3.6.0.min.js"></script>    
+    <script src="../../resources/js/jquery-3.6.0.min.js"></script>
+    <script src="../../resources/js/slide.js"></script>   
     <script src="../../resources/js/main.js"></script>
 </body>
 </html>

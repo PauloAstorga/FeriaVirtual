@@ -114,6 +114,7 @@ img {
 header {
     background: var(--header-color);
 }
+
 /*==========*/
 
 /*======Header nav======*/
@@ -253,7 +254,7 @@ header {
 }
 
 .nav__subitem {
-    padding: var(--mb-1) 0;
+    padding: var(--mb-0-25) 0;
 }
 
 .nav__title {
@@ -391,7 +392,7 @@ header {
         cursor: pointer;
         border-radius: 50%;
         border: 1px solid #D8E2DC;
-        transition: all 0.5s ease;
+        transition: all 0.5s ease-in-out;
     }
     
     #hide-aside {
@@ -407,7 +408,7 @@ header {
         cursor: pointer;
         border-radius: 50%;
         border: 1px solid #D8E2DC;
-        transition: all 0.5s ease;
+        transition: all 0.5s ease-in-out;
     }
         /*Esto esconde el aside*/
     .hide__aside {
@@ -510,8 +511,6 @@ header {
         from {opacity: .4}
         to {opacity: 1}
     }
-
-
 
     /*-----*/
 

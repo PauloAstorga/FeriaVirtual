@@ -1,1 +1,8 @@
-workspace.code-workspace
+# VsCode workspace
+frontend.code-workspace
+
+# Sql
+bd.sql
+
+# CodeIgniter (pendiente si se implementa)
+CodeIgniter-3.1.11

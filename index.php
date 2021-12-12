@@ -7,6 +7,8 @@
 
     <link rel="stylesheet" type="text/css" href="resources/css/estilos.css" />
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css" />
+    <link rel="stylesheet" type="text/css" href="resources/css/animations.css" />
+    <link rel="stylesheet" type="text/css" href="resources/css/hover.css" />
     <link rel="shortcut icon" type="image/x-icon" href="resources/images/logo_icono.ico" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> 
     
@@ -14,7 +16,7 @@
     <title>Feria Virtual</title>
 </head>
 
-<body>
+<body id="body">
     
     <header class="header" id="header">
         <nav class="nav container">
@@ -43,21 +45,40 @@
                         <a href="#" class="nav__link">
                             <i class="uil uil-shop"></i> Catálogo <i class="uil uil-arrow-right"></i>
                             <ul class="nav__sublist nav__subcatalogue">
+
                                 <li class="nav__subitem">
-                                    <a href="#" class="nav__link">
+                                    <a href="WEB/catalogo/nuestros-productos.php" class="nav__link">
+                                        <i class="uil uil-rainbow"></i> Todos los Productos
+                                    </a>
+                                </li>
+
+                                <li class="nav__subitem">
+                                    <a href="WEB/catalogo/frutos-secos.php" class="nav__link">
                                         <i class="uil uil-rainbow"></i> Frutos Secos
                                     </a>
                                 </li>
                                     
                                 <li class="nav__subitem">
-                                    <a href="WEB/catalogo/aceitunas.html" class="nav__link">
+                                    <a href="WEB/catalogo/frutas.php" class="nav__link">
                                         <i class="uil uil-wind-sun"></i> Frutas
                                     </a>
                                 </li>
 
                                 <li class="nav__subitem">
-                                    <a href="#" class="nav__link">
+                                    <a href="WEB/catalogo/verduras.php" class="nav__link">
                                         <i class="uil uil-cloud-showers-heavy"></i> Verduras
+                                    </a>
+                                </li>
+
+                                <li class="nav__subitem">
+                                    <a href="WEB/catalogo/carnes.php" class="nav__link">
+                                        <i class="uil uil-cloud-showers-heavy"></i> Carnes
+                                    </a>
+                                </li>
+
+                                <li class="nav__subitem">
+                                    <a href="WEB/catalogo/varios.php" class="nav__link">
+                                        <i class="uil uil-cloud-showers-heavy"></i> Varios
                                     </a>
                                 </li>
                             </ul>
@@ -87,8 +108,8 @@
                 <i class="uil uil-times nav__close" id="nav-close"></i>
             </div>
 
-            <div class="nav__login">
-                <a href="WEB/login/login.html" id="login__button" class="nav__item button">
+            <div class="nav__login bounce-in-top">
+                <a href="WEB/login/login.php" id="login__button" class="nav__item button">
                     <i class="uil uil-user nav__login"></i> Conectarse
                 </a>
             </div>
@@ -96,7 +117,7 @@
         </nav>
     </header>
 
-    <main class="main">
+    <main class="main" id="main">
 
         <!--Aside con redes sociales-->
         <aside class="main__aside" id="main-aside">
@@ -159,7 +180,7 @@
             <section class="home__information">
                 <img class="home-logo" alt="logo" src="resources/images/logo.png">
                 <div class="home-info-container">
-                    <h1 class="home__title">Feria Virtual</h1>
+                    <h1 class="home__title tracking-in-contract-bck">Feria Virtual</h1>
                     <p class="home__paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Et ab sed, necessitatibus sunt perspiciatis recusandae mollitia vitae blanditiis quis. Quam autem eaque rerum doloremque consequuntur hic harum delectus soluta. Commodi vel voluptates harum provident? Dolorem eos porro maiores earum! Pariatur suscipit magni vel tempore aliquam cum provident cupiditate ipsam quibusdam.</p>
                 </div>
             </section>
