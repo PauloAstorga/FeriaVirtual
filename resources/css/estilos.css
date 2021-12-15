@@ -89,8 +89,9 @@ body {
     margin: 0;
     font-family: var(--body-font);
     font-size: var(--normal-font-size);
-    background: var(--body-color);
+    background: #c77dff;
     color: var(--text-color);
+    transition: all 0.3s ease-in-out;
 }
 
 h1,h2,h3,h4 {
@@ -271,6 +272,8 @@ header {
 /*==========*/
 
 /*======Main======*/
+
+.main {margin-top: var(--header-height);}
     /*Aside social media*/
 
     .main__aside {
@@ -300,6 +303,10 @@ header {
         transition: all 0.5s ease;
     }
 
+    .main__item:hover {
+        transform: rotate(360deg);
+    }
+
     .fa {
         color: #D8E2DC;
         transition: all 0.5s ease;
@@ -309,12 +316,14 @@ header {
         border: 1px solid #3b5998;
         box-shadow: 0 0 15px #3b5998;
         transition: all 0.5s ease;
+        transform: rotate(360deg);
     }
 
     .main__item:hover .fa-facebook {
         color: #3b5998;
         text-shadow: 0 0 15px #3b5998;
         transition: all 0.5s ease;
+        transform: rotate(360deg);
     }
     /*-----*/
 
@@ -409,6 +418,10 @@ header {
         border-radius: 50%;
         border: 1px solid #D8E2DC;
         transition: all 0.5s ease-in-out;
+    }
+
+    #hide-aside:hover {
+        transform: rotate(360deg);
     }
         /*Esto esconde el aside*/
     .hide__aside {

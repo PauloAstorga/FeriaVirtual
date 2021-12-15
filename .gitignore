@@ -6,3 +6,6 @@ bd.sql
 
 # CodeIgniter (pendiente si se implementa)
 CodeIgniter-3.1.11
+
+#VsCode settings json
+.vscode

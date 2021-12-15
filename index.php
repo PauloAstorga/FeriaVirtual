@@ -7,11 +7,12 @@
 
     <link rel="stylesheet" type="text/css" href="resources/css/estilos.css" />
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css" />
+    <link rel="stylesheet" type="text/css" href="resources/css/loading-screen2.css" />
     <link rel="stylesheet" type="text/css" href="resources/css/animations.css" />
     <link rel="stylesheet" type="text/css" href="resources/css/hover.css" />
     <link rel="shortcut icon" type="image/x-icon" href="resources/images/logo_icono.ico" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> 
-    
+    <script src="resources/js/vue.min.js"></script>
 
     <title>Feria Virtual</title>
 </head>
@@ -281,8 +282,32 @@
             </div>
         </div>
     </footer>
+
+    <!--Loading Screen-->
+    <div class="basket">
+        <div class="apple"></div>
+
+        <div class="orange"></div>
+
+        <div class="cherry cherry1"></div>
+        <div class="cherry cherry2"></div>
+    </div>
+    <!---->
     <script src="resources/js/jquery-3.6.0.min.js"></script>
     <script src="resources/js/slide.js"></script>   
     <script src="resources/js/main.js"></script>
+    <script>
+        $(window).on("load",function(){
+            setTimeout( function(){
+                $('#body').css({'background':'var(--body-color)'});
+                $('.header').css({'display':'block'});
+                $('.main').css({'display':'block'});
+                $('.footer').css({'display':'block'});
+                $('.basket').css({'display':'none'})
+            }, 3900)
+            
+            
+        });
+    </script>
 </body>
 </html>

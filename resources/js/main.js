@@ -91,3 +91,51 @@ if (showAside) {
 }
 
 /*-----*/
+
+/*Login, Create, Recover*/
+
+const logRec = document.getElementById('login-test rec'),
+        logCre = document.getElementById('login-test cre'),
+        recoverLog = document.getElementById('recover-test log'),
+        createLog = document.getElementById('create-test log'),
+        createRec = document.getElementById('create-test rec'),
+        flipCardInner = document.getElementById('flip-card-inner'),
+        loginFlip = document.getElementById('flip-login'),
+        recoverFlip = document.getElementById('flip-recover'),
+        createFlip = document.getElementById('flip-create')
+/*Si, quedó así de feo porque no se me ocurrió otra forma :)*/
+
+if (logRec || logCre) {
+    logRec.addEventListener('click', () =>{/*Dentro de recuperar, al hacer click sobre login*/
+        flipCardInner.classList.remove('flip-animation')
+        setTimeout(function(){ /*El delay es estetico*/
+            createFlip.classList.remove('flip-hide')
+        },500)
+        formContainer.style.height = "650px"
+    })
+    logCre.addEventListener('click', () =>{/*Dentro de crear, al hacer click sobre login*/
+        flipCardInner.classList.remove('flip-animation')
+        setTimeout(function(){ /*Delay estetico*/
+            recoverFlip.classList.remove('flip-hide')
+        },500)
+        formContainer.style.height = "650px"
+    })
+}
+
+if (recoverLog) {
+    recoverLog.addEventListener('click', () =>{/*Dentro de login, al hacer click sobre recuperar*/
+        flipCardInner.classList.add('flip-animation')
+        createFlip.classList.add('flip-hide')
+        formContainer.style.height = "500px"
+    })
+}
+
+if (createLog) {
+    createLog.addEventListener('click', () =>{/*Dentro de login, al hacer click sobre crear*/
+        flipCardInner.classList.add('flip-animation')
+        recoverFlip.classList.add('flip-hide')
+        formContainer.style.height = "900px"
+    })
+}
+
+/*------*/

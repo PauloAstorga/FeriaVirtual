@@ -27,7 +27,7 @@
                 </div>
                     
                 <img alt="FeriaLogo" id="nav__image" class="nav__logo" src="../../resources/images/logo.png">
-                <a href="#" class="nav__logo">Feria Virtual</a>
+                <a href="../../index.php" class="nav__logo">Feria Virtual</a>
             </div>
 
             <div class="nav__menu" id="nav-menu">
@@ -36,7 +36,7 @@
                 </h3>
                 <ul class="nav__list">
                     <li class="nav__item">
-                        <a href="../../index.html#home" class="nav__link">
+                        <a href="../../index.php" class="nav__link">
                             <i class="uil uil-home nav__icon"></i> Home
                         </a>
                     </li>
@@ -90,7 +90,7 @@
             </div>
 
             <div class="back__button slide-in-right">
-                <a href="../../index.html" id="back__button" class="nav__item back__link button">
+                <a href="../../index.php" id="back__button" class="nav__item back__link button">
                     <i class="uil uil-left-arrow-from-left"></i> Volver
                 </a>
             </div>
@@ -98,66 +98,161 @@
         </nav>
     </header>
 
-    <main class="main swirl-in-fwd" id="main">
+    <main class="main" id="main">
 
-        <div class="form__container" id="form-container">
+        <div class="form__container puff-in-ver" id="form-container">
 
-            <div class="login__title">
-                <h1 class="login__title-text">Login</h1>
+            <div class="flip-card">
+                <div class="flip-card-inner" id="flip-card-inner">
+                    <!--Login Card-->
+                    <div id="flip-login" class="flip-card-login">
+                        <div class="login__title">
+                            <h1 class="login__title-text">Login</h1>
+                        </div>
+            
+                        <form action="" class="form">
+            
+                            <label for="correo">Correo</label>
+                            <div class="input__container">
+                                <i class="uil uil-user"></i>
+                                <input id="correo" class="input" type="email" placeholder="mail@example.com">
+                            </div>
+            
+                            <label for="contrasena">Contraseña</label>
+                            <div class="input__container">
+                                <i class="uil uil-key-skeleton-alt"></i>
+                                <input id="contrasena" class="input" type="password" placeholder="********">
+                            </div>
+            
+                            <a href="#" id="recover-test log" class="login__link forgot-pwd">¿Olvidó su contraseña?</a>
+            
+                            <div class="input__container remember">
+                                <input type="checkbox" id="remember" name="remember" class="checkbox-remember">
+                                Recordar cuenta
+                            </div>
+            
+                            <input id="conectarse" class="input submit-button" type="submit" value="Conectarse">
+                        </form>
+            
+                        <div class="login__footer">
+                            <span class="login__subtitle">O conectate utilizando</span>
+                            <div class="login__social">
+            
+                                <ul class="login__list">
+                                    <li class="login__item">
+                                        <a href="#" target="_blank" class="login__link">
+                                            <img class="login__social-image" alt="google logo" src="../../resources/images/social/g-login.png">
+                                        </a>
+                                    </li>
+            
+                                    <li class="login__item">
+                                        <a href="#" target="_blank" class="login__link">
+                                            <img class="login__social-image" alt="facebook logo" src="../../resources/images/social/f-login.png">
+                                        </a>
+                                    </li>
+            
+                                    <li class="login__item">
+                                        <a href="#" target="_blank" class="login__link">
+                                            <img class="login__social-image" alt="twitter logo" src="../../resources/images/social/t-login.png">
+                                        </a>
+                                    </li>
+                                </ul>
+                                
+                            </div>
+            
+                            <a href="#" id="create-test log" class="login__link create-acc">Crea una cuenta</a>
+                        </div>
+                    </div>
+                    <!--Recover Card-->
+                    <div id="flip-recover" class="flip-card-recover">
+                        <div class="login__title">
+                            <h1 class="login__title-text">Recupera tu cuenta</h1>
+                            <a id="login-test rec" class="login-back" href="#">
+                            <i class="uil uil-left-arrow-from-left"></i> Volver
+                            </a>
+                        </div>
+            
+                        <form action="" class="form">
+            
+                            <p class="recover__disclaimer">
+                                Si la direccion de correo coincide con alguna registrada, enviaremos un enlace de recuperación de contraseña.
+                            </p>
+                            <label for="correo">Correo</label>
+                            <div class="input__container">
+                                <i class="uil uil-user"></i>
+                                <input id="correo" class="input" type="email" placeholder="mail@example.com">
+                            </div>
+                            
+                            <input id="conectarse" class="input submit-button" type="submit" value="Enviar">
+                        </form>
+                    </div>
+                    <!--Create Card-->
+                    <div id="flip-create" class="flip-card-create">
+                        <div class="login__title">
+                            <h1 class="login__title-text">¡Crea tu cuenta!</h1>
+                            <a id="login-test cre" class="login-back" href="#">
+                                <i class="uil uil-left-arrow-from-left"></i> Volver
+                            </a>
+                        </div>
+            
+                        <form action="" class="form">
+            
+                            <label for="nombre">Nombre</label>
+                            <div class="input__container">
+                                <i class="uil uil-elipsis-double-v-alt"></i>
+                                <input id="nombre" class="input" type="text" placeholder="Nombre">
+                            </div>
+            
+                            <label for="apellido">Apellido</label>
+                            <div class="input__container">
+                                <i class="uil uil-document-layout-left"></i>
+                                <input id="apellido" class="input" type="text" placeholder="Apellido">
+                            </div>
+            
+                            <label for="correo">Correo</label>
+                            <div class="input__container">
+                                <i class="uil uil-user"></i>
+                                <input id="correo" class="input" type="email" placeholder="mail@example.com">
+                            </div>
+            
+                            <label for="contrasena">Contraseña</label>
+                            <div class="input__container">
+                                <i class="uil uil-key-skeleton-alt"></i>
+                                <input id="contrasena" class="input" type="password" placeholder="********">
+                            </div>
+            
+                            <label for="contrasena2">Repita su Contraseña</label>
+                            <div class="input__container">
+                                <i class="uil uil-key-skeleton-alt"></i>
+                                <input id="contrasena2" class="input" type="password" placeholder="********">
+                            </div>
+            
+                            <label for="comuna">Ciudad</label>
+                            <div class="input__container">
+                                <i class="uil uil-location-pin-alt"></i>
+                                <input id="ciudad" class="input" type="text" placeholder="Seleccione una...">
+                            </div>
+            
+                            <label for="comuna">Comuna</label>
+                            <div class="input__container">
+                                <i class="uil uil-university"></i>
+                                <input id="comuna" class="input" type="text" placeholder="Seleccione una...">
+                            </div>
+            
+                            <label for="tipo_cta">Tipo de Cuenta</label>
+                            <div class="input__container">
+                                <i class="uil uil-user-arrows"></i>
+                                <input id="tipo_cta" class="input" type="text" placeholder="Selecciona una...">
+                            </div>
+            
+                            <input id="conectarse" class="input submit-button" type="submit" value="Crear Cuenta">
+                        </form>
+                        
+                    </div>
+                </div>
             </div>
 
-            <form actioN="" class="form">
-
-                <label for="correo">Correo</label>
-                <div class="input__container">
-                    <i class="uil uil-user"></i>
-                    <input id="correo" class="input" type="email" placeholder="mail@example.com">
-                </div>
-
-                <label for="contrasena">Contraseña</label>
-                <div class="input__container">
-                    <i class="uil uil-key-skeleton-alt"></i>
-                    <input id="contrasena" class="input" type="password" placeholder="********">
-                </div>
-
-                <a href="recuperar-cuenta.html" id="forgot-pwd" class="login__link forgot-pwd">¿Olvidó su contraseña?</a>
-
-                <div class="input__container remember">
-                    <input type="checkbox" id="remember" name="remember" class="checkbox-remember">
-                    Recordar cuenta
-                </div>
-
-                <input id="conectarse" class="input submit-button" type="submit" value="Conectarse">
-            </form>
-
-            <div class="login__footer">
-                <span class="login__subtitle">O conectate utilizando</span>
-                <div class="login__social">
-
-                    <ul class="login__list">
-                        <li class="login__item">
-                            <a href="#" target="_blank" class="login__link">
-                                <img class="login__social-image" alt="google logo" src="../../resources/images/social/g-login.png">
-                            </a>
-                        </li>
-
-                        <li class="login__item">
-                            <a href="#" target="_blank" class="login__link">
-                                <img class="login__social-image" alt="facebook logo" src="../../resources/images/social/f-login.png">
-                            </a>
-                        </li>
-
-                        <li class="login__item">
-                            <a href="#" target="_blank" class="login__link">
-                                <img class="login__social-image" alt="twitter logo" src="../../resources/images/social/t-login.png">
-                            </a>
-                        </li>
-                    </ul>
-                    
-                </div>
-
-                <a href="crear-cuenta.html" id="create-acc" class="login__link create-acc">Crea una cuenta</a>
-            </div>
+            
 
         </div>
 

@@ -1,0 +1,170 @@
+/*==========Loading screen :)==========*/
+
+.body {
+    transition: all .1s ease-in-out;
+}
+
+.header,.main,.footer{
+    transition: all 1s ease-in-out;
+    display: none;
+}
+
+.apple {
+    width:6em;
+    height:5em;
+    background-color:  #ff4355;
+    box-shadow: inset 0.2em -0.2em  #cc1022;
+    border-radius: 2em 2em 3em 3em;
+    animation: applemation 2s ease-in-out infinite;
+    margin: 0 var(--mb-1);
+}
+  
+.apple:before {
+    top:-.2em;
+    left:1.8em;
+    content:"";
+    width:4.1em;
+    height:2.75em;
+    background-color: inherit;
+    border-radius: 3em 3em 0 0 ;
+    position: absolute;
+    box-shadow:-1.5em 0 0   #ff4355, inset .2em 0.2em  #ff4355;
+}
+  
+.apple:after{
+    content:"";
+    width: 0.2em;
+    height: 1em;
+    background-color:brown;
+    position:absolute;
+    z-index: 2;
+    top: -0.5em;
+    left: 3em;
+}
+
+.orange {
+    width: 5.6em;
+    height: 5.6em;
+    border-radius: 50%;
+    background-color: #ffb526;
+    box-shadow: inset 0.2em -.2em  #cc8a0c;
+    animation: applemation 2s ease-in infinite;
+    animation-delay: .15s;
+    margin: 0 var(--mb-1);
+}
+  
+.orange:before {
+    content: "";
+    position: absolute;
+    top: -1em;
+    left: 3em;
+    height: 0;
+    width: 0;
+    border: 1em solid #539e3d;
+    border-radius: 50% 0 50% 0;
+    border-bottom-color: #437512;
+    border-right-color: #437512;
+}
+
+.cherry {
+    width:3em;
+    height:2.5em;
+    background-color:  #c20e2b;
+    box-shadow: inset 0.2em -0.2em  #9b0b22;
+    border-radius: 2.5em 2.5em 4em 4em;
+    animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
+}
+ 
+.cherry1 {
+    transform: rotate(15deg);
+    animation: cherrytetion2 2s infinite;
+    animation-delay: .35s;
+    margin-left: var(--mb-1);
+}
+ 
+.cherry2 {
+   transform: rotate(-15deg);
+   animation: cherrytetion 2s infinite;
+   animation-delay: .35s;
+   margin-right: var(--mb-1);
+}
+ 
+.cherry1:before {
+   content: "";
+   width: 1em;
+   height: 2.8em;
+   background-color: transparent;
+   box-shadow: .2em -.1em 0 0 #539e3d;
+   border-radius: 50%;
+   position: absolute;
+   top: -2.6em;
+   left: 1em;
+   transform: rotate(19deg);
+}
+ 
+.cherry2:before {
+   content: "";
+   width: 1em;
+   height: 2.8em;
+   background-color: transparent;
+   box-shadow: .2em -.1em 0 0 #539e3d;
+   border-radius: 50%;
+   position: absolute;
+   top: -2.5em;
+   left: 0.5em;
+   transform: rotate(-12deg);
+}
+ 
+.cherry-join{
+   width:0.7em;
+   height: 0.4em;
+   background-color: #724126;
+   border-radius: 20%;
+   transform: rotate(-12deg);
+   animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
+   animation: cherrytetion 2s infinite;
+   animation-delay: .35s;
+}
+
+@keyframes applemation {
+    0%   { transform: scale(1,1)      translateY(0); }
+    10%  { transform: scale(1.1,.9)   translateY(0); }
+    30%  { transform: scale(.9,1.1)   translateY(-100px); }
+    50%  { transform: scale(1.05,.95) translateY(0) ; }
+    57%  { transform: scale(1,1)      translateY(-7px); }
+    64%  { transform: scale(1,1)      translateY(0); }
+    100% { transform: scale(1,1)      translateY(0); }
+}
+
+@keyframes cherrytetion {
+    0%   { transform: scale(1,1)      translateY(0) rotate(-12deg); }
+    10%  { transform: scale(1.1,.9)   translateY(0) rotate(-12deg); }
+    30%  { transform: scale(.9,1.1)   translateY(-100px) rotate(-12deg); }
+    50%  { transform: scale(1.05,.95) translateY(0) rotate(-12deg); }
+    57%  { transform: scale(1,1)      translateY(-7px) rotate(-12deg); }
+    64%  { transform: scale(1,1)      translateY(0) rotate(-12deg); }
+    100% { transform: scale(1,1)      translateY(0) rotate(-12deg); }
+}
+
+@keyframes cherrytetion2 {
+    0%   { transform: scale(1,1)      translateY(0) rotate(19deg); }
+    10%  { transform: scale(1.1,.9)   translateY(0) rotate(19deg); }
+    30%  { transform: scale(.9,1.1)   translateY(-100px) rotate(19deg); }
+    50%  { transform: scale(1.05,.95) translateY(0) rotate(19deg); }
+    57%  { transform: scale(1,1)      translateY(-7px) rotate(19deg); }
+    64%  { transform: scale(1,1)      translateY(0) rotate(19deg); }
+    100% { transform: scale(1,1)      translateY(0) rotate(19deg); }
+}
+/*==========*/
+
+.basket {
+    transform: translate(-50%,-50%);
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    top: 50%;
+    left: 50%;
+}

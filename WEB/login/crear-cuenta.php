@@ -106,7 +106,7 @@
                 <h1 class="login__title-text">¡Crea tu cuenta!</h1>
             </div>
 
-            <form actioN="" class="form">
+            <form action="" class="form">
 
                 <label for="nombre">Nombre</label>
                 <div class="input__container">

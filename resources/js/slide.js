@@ -14,3 +14,13 @@ function showSlides() {
   setTimeout(showSlides, 3500);
 }
 /*-----*/
+
+/*Check 1st time in home*/
+
+if (!localStorage.noFirstVisit) {
+  console.log("first visit")
+  
+  localStorage.noFirstVisit = true
+}
+
+/*-----*/
