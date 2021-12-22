@@ -3,7 +3,7 @@
     $host = 'localhost';
     $username = 'root';
     $password = '';
-    $database = 'feria_db';
+    $database = 'feria_test';
 
     $conexion = mysqli_connect($host, $username, $password);
 

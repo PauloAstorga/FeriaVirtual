@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css" />
     <link rel="stylesheet" type="text/css" href="../../resources/css/animations.css" />
     <link rel="stylesheet" type="text/css" href="../../resources/css/hover.css" />
+    <link rel="stylesheet" type="text/css" href="../../resources/css/productos.css" />
     <link rel="shortcut icon" type="image/x-icon" href="../../resources/images/logo_icono.ico" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> 
     
@@ -16,7 +17,7 @@
 </head>
 
 <body>
-    
+    <?php session_start(); ?>
     <header class="header" id="header">
         <nav class="nav container">
             
@@ -26,7 +27,7 @@
                 </div>
                     
                 <img alt="FeriaLogo" id="nav__image" class="nav__logo" src="../../resources/images/logo.png">
-                <a href="#" class="nav__logo">Feria Virtual</a>
+                <a href="../../index.php" class="nav__logo">Feria Virtual</a>
             </div>
 
             <div class="nav__menu" id="nav-menu">
@@ -35,7 +36,7 @@
                 </h3>
                 <ul class="nav__list">
                     <li class="nav__item">
-                        <a href="#" class="nav__link">
+                        <a href="../../index.php" class="nav__link">
                             <i class="uil uil-home nav__icon"></i> Home
                         </a>
                     </li>
@@ -69,15 +70,10 @@
                         <a href="#" class="nav__link">
                             <i class="uil uil-truck"></i> Entregas <i class="uil uil-arrow-right"></i>
                             <ul class="nav__sublist nav__subdeliver">
-                                <li class="nav__subitem">
-                                    <a href="#" class="nav__link">
-                                        <i class="uil uil-parcel"></i> Orden de Seguimiento 
-                                    </a>                                    
-                                </li>
 
                                 <li class="nav__subitem">
-                                    <a href="#" class="nav__link">
-                                        <i class="uil uil-truck"></i> Nuestros Proveedores
+                                    <a href="../entregas/nuestros-repartidores.php" class="nav__link">
+                                        <i class="uil uil-truck"></i> Nuestros Repartidores
                                     </a>                                    
                                 </li>
                             </ul>
@@ -89,10 +85,30 @@
             </div>
 
             <div class="nav__login bounce-in-top">
-                <a href="WEB/login/login.html" id="login__button" class="nav__item button">
+                <a href="../login/login.php" id="login__button log_button" class="nav__item button">
                     <i class="uil uil-user nav__login"></i> Conectarse
                 </a>
             </div>
+            
+            <div class="nav__login bounce-in-top">
+                <a href="../perfil/miperfil.php" id="login__button profile_button" class="nav__item button">
+                <i class="uil uil-user-circle"></i> Mi Perfil
+                </a>
+            </div>
+
+            <script>
+                <?php $isLog = $_SESSION['log']; ?>
+                const btProfile = document.getElementById('login__button profile_button'),
+                        btLogin = document.getElementById('login__button log_button')
+
+                if (<?php echo isset($_SESSION['log']); ?>) {
+                    btLogin.style.display = "none";
+                    btProfile.style.display = "flex";
+                } else {
+                    btProfile.style.display = "none";
+                    btLogin.style.display = "flex";
+                }
+            </script>
             
         </nav>
     </header>
@@ -115,7 +131,7 @@
                                 </div>
                                 <div class="product__content">
                                     <h2 class="product__title"><?php echo $fila[2].""; ?></h2>
-                                    <span class="product__subtitle"><?php echo $fila[4].""; ?></span>
+                                    <span class="product__subtitle">CLP <?php echo $fila[4].""; ?></span>
                                     <p class="product__description">
                                         <?php echo  $fila[3].""; ?>
                                     </p>

@@ -1,5 +1,9 @@
 /*==========Loading screen :)==========*/
 
+body {
+    background: #c77dff;
+}
+
 .header,.main,.footer{
     display: none;
 }

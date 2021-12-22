@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css" />
     <link rel="stylesheet" type="text/css" href="../../resources/css/animations.css" />
     <link rel="stylesheet" type="text/css" href="../../resources/css/hover.css" />
-    <link rel="stylesheet" type="text/css" href="../../resources/css/productos.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/css/profile.css"/>
     <link rel="shortcut icon" type="image/x-icon" href="../../resources/images/logo_icono.ico" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> 
     
@@ -17,11 +17,11 @@
 </head>
 
 <body>
-    <?php session_start(); ?>
+    <?php session_start();?>
     <header class="header" id="header">
         <nav class="nav container">
             
-            <div class="nav__logo-container">
+        <div class="nav__logo-container">
                 <div class="nav__toggle" id="nav-toggle">
                     <i class="uil uil-list-ul"></i>
                 </div>
@@ -47,37 +47,37 @@
                             <ul class="nav__sublist nav__subcatalogue">
 
                                 <li class="nav__subitem">
-                                    <a href="nuestros-productos.php" class="nav__link">
+                                    <a href="../catalogo/nuestros-productos.php" class="nav__link">
                                         <i class="uil uil-rainbow"></i> Todos los Productos
                                     </a>
                                 </li>
 
                                 <li class="nav__subitem">
-                                    <a href="frutos-secos.php" class="nav__link">
+                                    <a href="../catalogo/frutos-secos.php" class="nav__link">
                                         <i class="uil uil-rainbow"></i> Frutos Secos
                                     </a>
                                 </li>
                                     
                                 <li class="nav__subitem">
-                                    <a href="frutas.php" class="nav__link">
+                                    <a href="../catalogo/frutas.php" class="nav__link">
                                         <i class="uil uil-wind-sun"></i> Frutas
                                     </a>
                                 </li>
 
                                 <li class="nav__subitem">
-                                    <a href="verduras.php" class="nav__link">
+                                    <a href="../catalogo/verduras.php" class="nav__link">
                                         <i class="uil uil-cloud-showers-heavy"></i> Verduras
                                     </a>
                                 </li>
 
                                 <li class="nav__subitem">
-                                    <a href="carnes.php" class="nav__link">
+                                    <a href="../catalogo/carnes.php" class="nav__link">
                                         <i class="uil uil-cloud-showers-heavy"></i> Carnes
                                     </a>
                                 </li>
 
                                 <li class="nav__subitem">
-                                    <a href="varios.php" class="nav__link">
+                                    <a href="../catalogo/varios.php" class="nav__link">
                                         <i class="uil uil-cloud-showers-heavy"></i> Varios
                                     </a>
                                 </li>
@@ -89,15 +89,10 @@
                         <a href="#" class="nav__link">
                             <i class="uil uil-truck"></i> Entregas <i class="uil uil-arrow-right"></i>
                             <ul class="nav__sublist nav__subdeliver">
-                                <li class="nav__subitem">
-                                    <a href="#" class="nav__link">
-                                        <i class="uil uil-parcel"></i> Orden de Seguimiento 
-                                    </a>                                    
-                                </li>
 
                                 <li class="nav__subitem">
                                     <a href="#" class="nav__link">
-                                        <i class="uil uil-truck"></i> Nuestros Proveedores
+                                        <i class="uil uil-truck"></i> Nuestros Repartidores
                                     </a>                                    
                                 </li>
                             </ul>
@@ -108,91 +103,126 @@
                 <i class="uil uil-times nav__close" id="nav-close"></i>
             </div>
 
-            <div class="nav__login bounce-in-top">
-                <a href="../login/login.php" id="login__button log_button" class="nav__item button">
-                    <i class="uil uil-user nav__login"></i> Conectarse
+            <div class="back__button slide-in-right">
+                <a href="../../index.php" id="back__button" class="nav__item back__link button">
+                    <i class="uil uil-left-arrow-from-left"></i> Volver
                 </a>
             </div>
-            
-            <div class="nav__login bounce-in-top">
-                <a href="../perfil/miperfil.php" id="login__button profile_button" class="nav__item button">
-                <i class="uil uil-user-circle"></i> Mi Perfil
-                </a>
-            </div>
-
-            <script>
-                const btProfile = document.getElementById('login__button profile_button'),
-                        btLogin = document.getElementById('login__button log_button')
-
-                if (<?php echo isset($_SESSION['log']); ?>) {
-                    btLogin.style.display = "none";
-                    btProfile.style.display = "flex";
-                } else {
-                    btProfile.style.display = "none";
-                    btLogin.style.display = "flex";
-                }
-            </script>
-            
         </nav>
     </header>
 
     <main class="main">
-
         <section class="main__container">
-
-        <!--Php-->
-            <!--Cada uno de estos se saca de la bd-->
             <?php
-
                 include '../../resources/php/db.php';
 
-                $categoria = 6; /*Verdura es cod 1 y es pa testear OwO*/
+                $cod_usuario = $_SESSION['codigo'];
 
-                $consulta = "SELECT * FROM producto where codigo_tipo_categoria = ? ";
+
+                $consulta = "SELECT * FROM usuario WHERE codigo = ?";
                 $resultado = mysqli_prepare($conexion, $consulta);
 
                 if (!$resultado) {
-                    echo "Error".mysqli_error($conexion);
+                    echo "Error con resultado: ".mysqli_error($conexion);
                 }
 
-                $tabien = mysqli_stmt_bind_param($resultado, "i", $categoria);
+                $ok = mysqli_stmt_bind_param($resultado, "i", $cod_usuario);
+                $ok = mysqli_stmt_execute($resultado);
 
-                $tabien = mysqli_stmt_execute($resultado);
-
-                if (!$tabien) {
-                    echo "Error";
+                if (!$ok) {
+                    echo "Error con ok: ".mysqli_error($conexion);
                 } else {
-
-                    $tabien = mysqli_stmt_bind_result($resultado, $r_cod, $r_codcat, $r_nombre, $r_descrip, $r_precio, $r_imagen, $r_cantidad, $r_codpues );
-
-                    while( mysqli_stmt_fetch($resultado) ){
-                        ?>
-<!---->
-<!--==========Codigo HTML==========-->
-                        <div class="product__row">
-                            <div class="product__container producto">
-                                <div class="product__image">
-                                    <img id="imagen" class="product-image" alt="imagen producto" src="<?php echo $r_imagen.""; ?>">
-                                </div>
-                                <div class="product__content">
-                                    <h2 class="product__title"><?php echo $r_nombre.""; ?></h2>
-                                    <span class="product__subtitle">CLP <?php echo $r_precio.""; ?></span>
-                                    <p class="product__description">
-                                        <?php echo  $r_descrip.""; ?>
-                                    </p>
-                                    <span class="product__source">Puesto: <?php echo "".$r_codpues; ?></span>
-                                    <a href="#" class="buy-item">
-                                        <i class="uil uil-shopping-bag"></i>
-                                    </a>
-                                </div>                
-                            </div>
+                    $ok = mysqli_stmt_bind_result($resultado, $cod, $rut, $nombre, $apellido, $correo, $telefono, $pwd, $direccion, $tipo);
+                    while (mysqli_stmt_fetch($resultado)){
+            ?>
+                    <div class="profile_content">
+                        <div class="profile_title">
+                            <h1 id="title" class="title">Perfil de Usuario</h1>
                         </div>
-<!--====================-->
-                        <?php
+                        <form id="form_profile" class="form" action="modificaperfil.php" method="POST">
+                            <input type="text" id="code" name="code" disabled value="<?php echo "".$cod; ?>">
+                            <input type="hidden" id="codigo" name="codigo" value="<?php echo "".$cod; ?>">
+                            <input type="text" id="dni" name="dni" value="<?php echo "".$rut; ?>">
+                            <input type="hidden" id="rut" name="rut" value="<?php echo "".$rut; ?>">
+
+                            <input type="text" name="nombre" id="nombre" value="<?php echo "".$nombre; ?>">
+                            <input type="text" name="apellido" id="apellido" value="<?php echo "".$apellido; ?>">
+                            <input type="email" name="correo" id="correo" value="<?php echo "".$correo; ?>">
+                            <input type="text" name="telefono" id="telefono" value="<?php echo "".$telefono; ?>">
+                            <input type="password" name="contrasena" id="contrasena" placeholder="Contraseña Antigua">
+                            <input type="password" name="newcontrasena" id="newcontrasena" placeholder="Nueva Contraseña">
+
+                            <input type="submit" id="enviar" name="enviar" value="Modificar">
+
+                            <?php
+                                if (isset($_GET['pwd'])) {
+                                    echo '<div id="error_msg" class="error_msg" style="color:red">Sus contraseñas no coinciden</div>';
+                                } else if (isset($_GET['change'])) {
+                                    echo '<div id="nice_msg" class="nice_msg" style="color:green">Sus datos fueron actualizados :)</div>';
+                                }
+                            ?>
+                        </form>
+                    </div>
+            <?php
                     }
                 }
             ?>
-<!--PhpFin-->
+
+            <?php
+
+            if ($_SESSION['cod_tipo_usuario']==4){
+            ?>
+                <div class="puesto_container">
+                    <div class="puesto_title">
+                        <h3 class="title">Agregar Puesto</h3>
+                    </div>
+                    <form action="" method="POST" class="form">
+                        <input type="text" id="patente" name="patente" placeholder="Patente">
+                        <input type="text" id="direccion" name="direccion" placeholder="Direccion">
+
+                        <input type="submit" id="enviar" name="enviar" value="Crear Puesto">
+                    </form>
+                </div>
+
+                <?php
+
+                $resultado->free_result();
+
+                $select_puesto = "SELECT * FROM puesto WHERE codigo_usuario = ?";
+                $codigo_usuario = $_SESSION['codigo'];
+                $resultado = mysqli_prepare($conexion, $select_puesto);
+
+                if (!$resultado) {
+                    echo "Error con resultado: ".mysqli_error($conexion);
+                }
+
+                $ok = mysqli_stmt_bind_param($resultado,"i",$codigo_usuario);
+                $ok = mysqli_stmt_execute($resultado);
+
+                if (!$ok) {
+                    echo "Error con ok puesto: ".mysqli_error($conexion);
+                }
+
+                $ok = mysqli_stmt_bind_result($resultado, $p_cod, $p_date, $p_patente, $p_direccion, $p_usuario);
+                while (mysqli_stmt_fetch($resultado)) {
+                    ?>
+                        <div class="puesto_container">
+                            <table>
+                                <tr>
+                                    <td>Codigo</td>
+                                    <td>Fecha</td>
+                                    <td>Patente</td>
+                                    <td>Codigo</td>
+                                    <td>Codigo</td>
+                                    <td>Codigo</td>
+                                </tr>
+                            </table>
+                        </div>
+                    <?php
+                }
+            }
+            ?>
+
         </section>
     </main>
 
@@ -245,5 +275,6 @@
     <script src="../../resources/js/jquery-3.6.0.min.js"></script>
     <script src="../../resources/js/slide.js"></script>   
     <script src="../../resources/js/main.js"></script>
+    <script src="../../resources/js/pago.js"></script>
 </body>
 </html>

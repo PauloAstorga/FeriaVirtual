@@ -17,7 +17,7 @@
 </head>
 
 <body id="body">
-    
+    <?php session_start();?>
     <header class="header" id="header">
         <nav class="nav container">
             
@@ -45,21 +45,40 @@
                         <a href="#" class="nav__link">
                             <i class="uil uil-shop"></i> Catálogo <i class="uil uil-arrow-right"></i>
                             <ul class="nav__sublist nav__subcatalogue">
+
                                 <li class="nav__subitem">
-                                    <a href="../catalogo/frutos_secos.html" class="nav__link">
+                                    <a href="../catalogo/nuestros-productos.php" class="nav__link">
+                                        <i class="uil uil-rainbow"></i> Todos los Productos
+                                    </a>
+                                </li>
+
+                                <li class="nav__subitem">
+                                    <a href="../catalogo/frutos-secos.php" class="nav__link">
                                         <i class="uil uil-rainbow"></i> Frutos Secos
                                     </a>
                                 </li>
                                     
                                 <li class="nav__subitem">
-                                    <a href="../catalogo/frutas.html" class="nav__link">
+                                    <a href="../catalogo/frutas.php" class="nav__link">
                                         <i class="uil uil-wind-sun"></i> Frutas
                                     </a>
                                 </li>
 
                                 <li class="nav__subitem">
-                                    <a href="../catalogo/verduras.html" class="nav__link">
+                                    <a href="../catalogo/verduras.php" class="nav__link">
                                         <i class="uil uil-cloud-showers-heavy"></i> Verduras
+                                    </a>
+                                </li>
+
+                                <li class="nav__subitem">
+                                    <a href="../catalogo/carnes.php" class="nav__link">
+                                        <i class="uil uil-cloud-showers-heavy"></i> Carnes
+                                    </a>
+                                </li>
+
+                                <li class="nav__subitem">
+                                    <a href="../catalogo/varios.php" class="nav__link">
+                                        <i class="uil uil-cloud-showers-heavy"></i> Varios
                                     </a>
                                 </li>
                             </ul>
@@ -70,21 +89,35 @@
                         <a href="#" class="nav__link">
                             <i class="uil uil-truck"></i> Entregas <i class="uil uil-arrow-right"></i>
                             <ul class="nav__sublist nav__subdeliver">
-                                <li class="nav__subitem">
-                                    <a href="../entregas/orden-seguimiento.html" class="nav__link">
-                                        <i class="uil uil-parcel"></i> Orden de Seguimiento 
-                                    </a>                                    
-                                </li>
 
                                 <li class="nav__subitem">
-                                    <a href="../entregas/nuestros-proveedores.html" class="nav__link">
-                                        <i class="uil uil-truck"></i> Nuestros Proveedores
+                                    <a href="../entregas/nuestros-repartidores.html" class="nav__link">
+                                        <i class="uil uil-truck"></i> Nuestros Repartidores
                                     </a>                                    
                                 </li>
                             </ul>
                         </a>
                     </li>
                 </ul>
+
+                <div class="user__info">
+                    <?php
+                    if (isset($_SESSION['nombre'])) { ?>
+                        <div class="user_name">
+                            <?php
+                            echo "Nombre: ".$_SESSION['nombre'];
+                            ?>
+                        </div>
+
+                        <div class="user_mail">
+                            <?php
+                            echo "Correo :".$_SESSION['correo'];
+                            ?>
+                        </div>
+                    <?php
+                    }
+                    ?>
+                </div>
 
                 <i class="uil uil-times nav__close" id="nav-close"></i>
             </div>
@@ -99,7 +132,7 @@
     </header>
 
     <main class="main" id="main">
-
+        
         <div class="form__container puff-in-ver" id="form-container">
 
             <div class="flip-card">
@@ -110,18 +143,18 @@
                             <h1 class="login__title-text">Login</h1>
                         </div>
             
-                        <form action="" class="form">
+                        <form action="verifica_login.php" method="POST" class="form">
             
                             <label for="correo">Correo</label>
                             <div class="input__container">
                                 <i class="uil uil-user"></i>
-                                <input id="correo" class="input" type="email" placeholder="mail@example.com">
+                                <input id="correo" name="correo" class="input" type="email" placeholder="mail@example.com">
                             </div>
             
                             <label for="contrasena">Contraseña</label>
                             <div class="input__container">
                                 <i class="uil uil-key-skeleton-alt"></i>
-                                <input id="contrasena" class="input" type="password" placeholder="********">
+                                <input id="contrasena" name="contrasena" class="input" type="password" placeholder="********">
                             </div>
             
                             <a href="#" id="recover-test log" class="login__link forgot-pwd">¿Olvidó su contraseña?</a>
@@ -172,7 +205,7 @@
                             </a>
                         </div>
             
-                        <form action="" class="form">
+                        <form action="" method="POST" class="form">
             
                             <p class="recover__disclaimer">
                                 Si la direccion de correo coincide con alguna registrada, enviaremos un enlace de recuperación de contraseña.
@@ -195,54 +228,166 @@
                             </a>
                         </div>
             
-                        <form action="" class="form">
+                        <form action="crear_usuario.php" method="POST" class="form">
             
+
+                            <label for="rut">Rut</label>
+                            <div class="input__container">
+                                <i class="uil uil-book-reader"></i>
+                                <input required id="rut" name="rut" class="input" type="text" placeholder="Rut(solo con guion)">
+                            </div>
+
                             <label for="nombre">Nombre</label>
                             <div class="input__container">
                                 <i class="uil uil-elipsis-double-v-alt"></i>
-                                <input id="nombre" class="input" type="text" placeholder="Nombre">
+                                <input required id="nombre" name="nombre" class="input" type="text" placeholder="Nombre">
                             </div>
             
                             <label for="apellido">Apellido</label>
                             <div class="input__container">
                                 <i class="uil uil-document-layout-left"></i>
-                                <input id="apellido" class="input" type="text" placeholder="Apellido">
+                                <input required id="apellido" name="apellido" class="input" type="text" placeholder="Apellido">
                             </div>
             
                             <label for="correo">Correo</label>
                             <div class="input__container">
                                 <i class="uil uil-user"></i>
-                                <input id="correo" class="input" type="email" placeholder="mail@example.com">
+                                <input required id="correo" name="correo" class="input" type="email" placeholder="mail@example.com">
                             </div>
             
-                            <label for="contrasena">Contraseña</label>
+                            <label for="contrasenac">Contraseña</label>
                             <div class="input__container">
                                 <i class="uil uil-key-skeleton-alt"></i>
-                                <input id="contrasena" class="input" type="password" placeholder="********">
+                                <input required id="contrasenac" name="contrasenac" class="input" type="password" placeholder="********">
                             </div>
             
-                            <label for="contrasena2">Repita su Contraseña</label>
+                            <label for="contrasena2c">Repita su Contraseña</label>
                             <div class="input__container">
                                 <i class="uil uil-key-skeleton-alt"></i>
-                                <input id="contrasena2" class="input" type="password" placeholder="********">
+                                <input required id="contrasena2c" class="input" type="password" placeholder="********">
+                            </div>
+
+                            <div id="equalpwd"></div>
+                            <script>
+                                const pwd1 = document.getElementById('contrasenac'),
+                                        pwd2 = document.getElementById('contrasena2c'),
+                                        divPwd = document.getElementById('equalpwd')
+                                
+                                pwd1.addEventListener('click', ()=>{
+                                    if (pwd1.value!=pwd2.value) {
+                                    divPwd.style.color = "red";
+                                    divPwd.innerHTML = "Las contraseñas no coinciden"
+                                    } else {
+                                        divPwd.style.color = "green";
+                                        divPwd.innerHTML = "Las contraseñas coinciden :)"
+                                    }
+                                })
+
+                                pwd2.addEventListener('click', ()=>{
+                                    if (pwd1.value!=pwd2.value) {
+                                    divPwd.style.color = "red";
+                                    divPwd.innerHTML = "Las contraseñas no coinciden"
+                                    } else {
+                                        divPwd.style.color = "green";
+                                        divPwd.innerHTML = "Las contraseñas coinciden :)"
+                                    }
+                                })
+                                
+                            </script>
+
+                            <label for="telefono">Telefono</label>
+                            <div class="input__container">
+                                <i class="uil uil-phone"></i>
+                                <input required id="telefono" name="telefono" class="input" type="text" placeholder="Telefono">
+                            </div>
+
+                            <?php
+
+                                include '../../resources/php/db.php';
+
+                                $numeroRegiones = NULL;
+                                $numeroCiudades = NULL;
+                                $numeroComunas = NULL;
+
+                                $consulta_numero = "SELECT COUNT(codigo) AS 'cont' FROM region";
+                                $resultado = mysqli_query($conexion, $consulta_numero);
+
+                                if (!$resultado) {
+                                    echo "Error con resultado: ".mysqli_error($conexion);
+                                }
+
+                                while ($fila = mysqli_fetch_row($resultado)) {
+                                    $numeroRegiones=$fila[0];
+                                }
+
+                                $resultado->free_result();
+
+                                $consulta_regiones = "SELECT nombre FROM region";
+                                $consulta_ciudades = "SELECT nombre FROM ciudad";
+                                $consulta_comunas = "SELECT nombre FROM comuna";
+                                $consulta_tipo = "SELECT tipo FROM tipo_usuario WHERE codigo=1 OR codigo=4 OR codigo=5";
+
+                                $resultado = mysqli_query($conexion, $consulta_regiones);
+
+                                if (!$resultado) {
+                                    echo "Error con resultado: ".mysqli_error($conexion);
+                                }
+
+                            ?>
+                            <label for="">Region</label>
+                            <div class="input__container">
+                                <i class="uil uil-sign-alt"></i>
+                                <select id="region" name="region" required>
+                                    <option id="vacio" name="vacio">Seleccione una Región</option>
+                                    <?php
+                                        while ($fila = mysqli_fetch_row($resultado)) {
+                                            ?>
+                                            <option><?php echo "".$fila[0]; ?></option>
+                                            <?php
+                                        }
+                                        $resultado->free_result();
+                                    ?>
+                                </select>
                             </div>
             
-                            <label for="comuna">Ciudad</label>
+                            <label for="">Comuna</label>
                             <div class="input__container">
-                                <i class="uil uil-location-pin-alt"></i>
-                                <input id="ciudad" class="input" type="text" placeholder="Seleccione una...">
+                                <i class="uil uil-sign-alt"></i>
+                                <select id="comuna" name="comuna" required>
+                                    <option id="vacio" name="vacio">Seleccione una Comuna</option>
+                                    <?php
+                                    $resultado = mysqli_query($conexion, $consulta_comunas);
+                                        while ($fila = mysqli_fetch_row($resultado)) {
+                                            ?>
+                                            <option><?php echo "".$fila[0]; ?></option>
+                                            <?php
+                                        }
+                                        $resultado->free_result();
+                                    ?>
+                                </select>
+                            </div>
+
+                            <label for ="">Direccion</label>
+                            <div class="input__container">
+                                <i class="uil uil-compass"></i>
+                                <input type="text" name="direccion" id="direccion" class="input" placeholder="Direccion">
                             </div>
             
-                            <label for="comuna">Comuna</label>
+                            <label for="">Tipo de Cuenta</label>
                             <div class="input__container">
-                                <i class="uil uil-university"></i>
-                                <input id="comuna" class="input" type="text" placeholder="Seleccione una...">
-                            </div>
-            
-                            <label for="tipo_cta">Tipo de Cuenta</label>
-                            <div class="input__container">
-                                <i class="uil uil-user-arrows"></i>
-                                <input id="tipo_cta" class="input" type="text" placeholder="Selecciona una...">
+                                <i class="uil uil-sign-alt"></i>
+                                <select id="tipo_cuenta" name="tipo_cuenta">
+                                    <option id="vacio" name="vacio">Seleccione Tipo</option>
+                                    <?php
+                                    $resultado = mysqli_query($conexion, $consulta_tipo);
+                                        while ($fila = mysqli_fetch_row($resultado)) {
+                                            ?>
+                                            <option><?php echo "".$fila[0]; ?></option>
+                                            <?php
+                                        }
+                                        $resultado->free_result();
+                                    ?>
+                                </select>
                             </div>
             
                             <input id="conectarse" class="input submit-button" type="submit" value="Crear Cuenta">

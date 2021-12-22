@@ -17,7 +17,7 @@
 </head>
 
 <body>
-    <?php session_start(); ?>
+<?php session_start();?>
     <header class="header" id="header">
         <nav class="nav container">
             
@@ -89,15 +89,10 @@
                         <a href="#" class="nav__link">
                             <i class="uil uil-truck"></i> Entregas <i class="uil uil-arrow-right"></i>
                             <ul class="nav__sublist nav__subdeliver">
-                                <li class="nav__subitem">
-                                    <a href="#" class="nav__link">
-                                        <i class="uil uil-parcel"></i> Orden de Seguimiento 
-                                    </a>                                    
-                                </li>
 
                                 <li class="nav__subitem">
-                                    <a href="#" class="nav__link">
-                                        <i class="uil uil-truck"></i> Nuestros Proveedores
+                                    <a href="../entregas/nuestros-repartidores.php" class="nav__link">
+                                        <i class="uil uil-truck"></i> Nuestros Repartidores
                                     </a>                                    
                                 </li>
                             </ul>
@@ -109,90 +104,35 @@
             </div>
 
             <div class="nav__login bounce-in-top">
-                <a href="../login/login.php" id="login__button log_button" class="nav__item button">
+                <a href="WEB/login/login.php" id="login__button" class="nav__item button">
                     <i class="uil uil-user nav__login"></i> Conectarse
                 </a>
             </div>
             
-            <div class="nav__login bounce-in-top">
-                <a href="../perfil/miperfil.php" id="login__button profile_button" class="nav__item button">
-                <i class="uil uil-user-circle"></i> Mi Perfil
-                </a>
-            </div>
-
-            <script>
-                const btProfile = document.getElementById('login__button profile_button'),
-                        btLogin = document.getElementById('login__button log_button')
-
-                if (<?php echo isset($_SESSION['log']); ?>) {
-                    btLogin.style.display = "none";
-                    btProfile.style.display = "flex";
-                } else {
-                    btProfile.style.display = "none";
-                    btLogin.style.display = "flex";
-                }
-            </script>
-            
         </nav>
     </header>
 
+    
     <main class="main">
 
+        <?php
+            $consulta = "SELECT nombre FROM "
+        ?>
         <section class="main__container">
 
-        <!--Php-->
-            <!--Cada uno de estos se saca de la bd-->
-            <?php
+            <form action="agrega.php" method="POST">
 
-                include '../../resources/php/db.php';
+                <input type="text" id="nombre" name="nombre" placeholder="Nombre">
+                <select id="categoria" name="categoria">
+                    <option id="" name="">Seleccione una categoria</option>
+                </select>
+                <textarea id="descripcion" name="descripcion" placeholder="Descripcion"></textarea>
+                <input type="number" id="precio" name="precio" placeholder="Precio">
+                <input type="number" id="cantidad" name="cantidad" placeholder="Cantidad">
+                <input type="file" id="imagen" name="imagen">
 
-                $categoria = 6; /*Verdura es cod 1 y es pa testear OwO*/
-
-                $consulta = "SELECT * FROM producto where codigo_tipo_categoria = ? ";
-                $resultado = mysqli_prepare($conexion, $consulta);
-
-                if (!$resultado) {
-                    echo "Error".mysqli_error($conexion);
-                }
-
-                $tabien = mysqli_stmt_bind_param($resultado, "i", $categoria);
-
-                $tabien = mysqli_stmt_execute($resultado);
-
-                if (!$tabien) {
-                    echo "Error";
-                } else {
-
-                    $tabien = mysqli_stmt_bind_result($resultado, $r_cod, $r_codcat, $r_nombre, $r_descrip, $r_precio, $r_imagen, $r_cantidad, $r_codpues );
-
-                    while( mysqli_stmt_fetch($resultado) ){
-                        ?>
-<!---->
-<!--==========Codigo HTML==========-->
-                        <div class="product__row">
-                            <div class="product__container producto">
-                                <div class="product__image">
-                                    <img id="imagen" class="product-image" alt="imagen producto" src="<?php echo $r_imagen.""; ?>">
-                                </div>
-                                <div class="product__content">
-                                    <h2 class="product__title"><?php echo $r_nombre.""; ?></h2>
-                                    <span class="product__subtitle">CLP <?php echo $r_precio.""; ?></span>
-                                    <p class="product__description">
-                                        <?php echo  $r_descrip.""; ?>
-                                    </p>
-                                    <span class="product__source">Puesto: <?php echo "".$r_codpues; ?></span>
-                                    <a href="#" class="buy-item">
-                                        <i class="uil uil-shopping-bag"></i>
-                                    </a>
-                                </div>                
-                            </div>
-                        </div>
-<!--====================-->
-                        <?php
-                    }
-                }
-            ?>
-<!--PhpFin-->
+            </form>
+        
         </section>
     </main>
 

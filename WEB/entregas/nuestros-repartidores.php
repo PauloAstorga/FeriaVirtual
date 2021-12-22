@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css" />
     <link rel="stylesheet" type="text/css" href="../../resources/css/animations.css" />
     <link rel="stylesheet" type="text/css" href="../../resources/css/hover.css" />
-    <link rel="stylesheet" type="text/css" href="../../resources/css/productos.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/css/repartidores.css />
     <link rel="shortcut icon" type="image/x-icon" href="../../resources/images/logo_icono.ico" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> 
     
@@ -21,7 +21,7 @@
     <header class="header" id="header">
         <nav class="nav container">
             
-            <div class="nav__logo-container">
+        <div class="nav__logo-container">
                 <div class="nav__toggle" id="nav-toggle">
                     <i class="uil uil-list-ul"></i>
                 </div>
@@ -47,37 +47,37 @@
                             <ul class="nav__sublist nav__subcatalogue">
 
                                 <li class="nav__subitem">
-                                    <a href="nuestros-productos.php" class="nav__link">
+                                    <a href="../catalogo/nuestros-productos.php" class="nav__link">
                                         <i class="uil uil-rainbow"></i> Todos los Productos
                                     </a>
                                 </li>
 
                                 <li class="nav__subitem">
-                                    <a href="frutos-secos.php" class="nav__link">
+                                    <a href="../catalogo/frutos-secos.php" class="nav__link">
                                         <i class="uil uil-rainbow"></i> Frutos Secos
                                     </a>
                                 </li>
                                     
                                 <li class="nav__subitem">
-                                    <a href="frutas.php" class="nav__link">
+                                    <a href="../catalogo/frutas.php" class="nav__link">
                                         <i class="uil uil-wind-sun"></i> Frutas
                                     </a>
                                 </li>
 
                                 <li class="nav__subitem">
-                                    <a href="verduras.php" class="nav__link">
+                                    <a href="../catalogo/verduras.php" class="nav__link">
                                         <i class="uil uil-cloud-showers-heavy"></i> Verduras
                                     </a>
                                 </li>
 
                                 <li class="nav__subitem">
-                                    <a href="carnes.php" class="nav__link">
+                                    <a href="../catalogo/carnes.php" class="nav__link">
                                         <i class="uil uil-cloud-showers-heavy"></i> Carnes
                                     </a>
                                 </li>
 
                                 <li class="nav__subitem">
-                                    <a href="varios.php" class="nav__link">
+                                    <a href="../catalogo/varios.php" class="nav__link">
                                         <i class="uil uil-cloud-showers-heavy"></i> Varios
                                     </a>
                                 </li>
@@ -89,15 +89,10 @@
                         <a href="#" class="nav__link">
                             <i class="uil uil-truck"></i> Entregas <i class="uil uil-arrow-right"></i>
                             <ul class="nav__sublist nav__subdeliver">
-                                <li class="nav__subitem">
-                                    <a href="#" class="nav__link">
-                                        <i class="uil uil-parcel"></i> Orden de Seguimiento 
-                                    </a>                                    
-                                </li>
 
                                 <li class="nav__subitem">
                                     <a href="#" class="nav__link">
-                                        <i class="uil uil-truck"></i> Nuestros Proveedores
+                                        <i class="uil uil-truck"></i> Nuestros Repartidores
                                     </a>                                    
                                 </li>
                             </ul>
@@ -137,25 +132,22 @@
     </header>
 
     <main class="main">
-
         <section class="main__container">
-
-        <!--Php-->
-            <!--Cada uno de estos se saca de la bd-->
+            <!--Muestra todos los productos-->
             <?php
 
                 include '../../resources/php/db.php';
 
-                $categoria = 6; /*Verdura es cod 1 y es pa testear OwO*/
+                $tipo = 5; /*Codigo repartidores*/
 
-                $consulta = "SELECT * FROM producto where codigo_tipo_categoria = ? ";
+                $consulta = "SELECT * FROM usuario where codigo_tipo_usuario = ? ";
                 $resultado = mysqli_prepare($conexion, $consulta);
 
                 if (!$resultado) {
                     echo "Error".mysqli_error($conexion);
                 }
 
-                $tabien = mysqli_stmt_bind_param($resultado, "i", $categoria);
+                $tabien = mysqli_stmt_bind_param($resultado, "i", $tipo);
 
                 $tabien = mysqli_stmt_execute($resultado);
 
@@ -163,24 +155,23 @@
                     echo "Error";
                 } else {
 
-                    $tabien = mysqli_stmt_bind_result($resultado, $r_cod, $r_codcat, $r_nombre, $r_descrip, $r_precio, $r_imagen, $r_cantidad, $r_codpues );
+                    $tabien = mysqli_stmt_bind_result($resultado, $r_cod, $r_rut, $r_nombre, $r_apellido, $r_correo, $r_telefono, $r_contrasena,$r_direccion, $r_tipo_usuario);
 
                     while( mysqli_stmt_fetch($resultado) ){
                         ?>
 <!---->
 <!--==========Codigo HTML==========-->
-                        <div class="product__row">
-                            <div class="product__container producto">
-                                <div class="product__image">
-                                    <img id="imagen" class="product-image" alt="imagen producto" src="<?php echo $r_imagen.""; ?>">
-                                </div>
-                                <div class="product__content">
-                                    <h2 class="product__title"><?php echo $r_nombre.""; ?></h2>
-                                    <span class="product__subtitle">CLP <?php echo $r_precio.""; ?></span>
-                                    <p class="product__description">
-                                        <?php echo  $r_descrip.""; ?>
+                        <div class="repartidor__row">
+                            <div class="repartidor__container producto">
+                                
+                                <div class="repartidor__content">
+                                    <h2 class="repartidor__title"><?php echo $r_nombre.""; ?></h2>
+                                    <span class="repartidor__subtitle"><?php echo $r_apellido.""; ?></span>
+                                    <p class="repartidor__contact">
+                                        <h3 id="repartidor__text">Contacto</h3>
+                                        <?php echo  "Correo :".$r_correo."<br> Telefono : ".$r_telefono."<br>"; ?>
                                     </p>
-                                    <span class="product__source">Puesto: <?php echo "".$r_codpues; ?></span>
+                                    <span class="product__source">RUT: <?php echo "".$r_rut; ?></span>
                                     <a href="#" class="buy-item">
                                         <i class="uil uil-shopping-bag"></i>
                                     </a>
@@ -192,7 +183,6 @@
                     }
                 }
             ?>
-<!--PhpFin-->
         </section>
     </main>
 

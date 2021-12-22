@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css" />
     <link rel="stylesheet" type="text/css" href="../../resources/css/animations.css" />
     <link rel="stylesheet" type="text/css" href="../../resources/css/hover.css" />
-    <link rel="stylesheet" type="text/css" href="../../resources/css/productos.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/css/repartidores.css />
     <link rel="shortcut icon" type="image/x-icon" href="../../resources/images/logo_icono.ico" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> 
     
@@ -17,11 +17,11 @@
 </head>
 
 <body>
-    <?php session_start(); ?>
+    <?php session_start();?>
     <header class="header" id="header">
         <nav class="nav container">
             
-            <div class="nav__logo-container">
+        <div class="nav__logo-container">
                 <div class="nav__toggle" id="nav-toggle">
                     <i class="uil uil-list-ul"></i>
                 </div>
@@ -47,37 +47,37 @@
                             <ul class="nav__sublist nav__subcatalogue">
 
                                 <li class="nav__subitem">
-                                    <a href="nuestros-productos.php" class="nav__link">
+                                    <a href="../catalogo/nuestros-productos.php" class="nav__link">
                                         <i class="uil uil-rainbow"></i> Todos los Productos
                                     </a>
                                 </li>
 
                                 <li class="nav__subitem">
-                                    <a href="frutos-secos.php" class="nav__link">
+                                    <a href="../catalogo/frutos-secos.php" class="nav__link">
                                         <i class="uil uil-rainbow"></i> Frutos Secos
                                     </a>
                                 </li>
                                     
                                 <li class="nav__subitem">
-                                    <a href="frutas.php" class="nav__link">
+                                    <a href="../catalogo/frutas.php" class="nav__link">
                                         <i class="uil uil-wind-sun"></i> Frutas
                                     </a>
                                 </li>
 
                                 <li class="nav__subitem">
-                                    <a href="verduras.php" class="nav__link">
+                                    <a href="../catalogo/verduras.php" class="nav__link">
                                         <i class="uil uil-cloud-showers-heavy"></i> Verduras
                                     </a>
                                 </li>
 
                                 <li class="nav__subitem">
-                                    <a href="carnes.php" class="nav__link">
+                                    <a href="../catalogo/carnes.php" class="nav__link">
                                         <i class="uil uil-cloud-showers-heavy"></i> Carnes
                                     </a>
                                 </li>
 
                                 <li class="nav__subitem">
-                                    <a href="varios.php" class="nav__link">
+                                    <a href="../catalogo/varios.php" class="nav__link">
                                         <i class="uil uil-cloud-showers-heavy"></i> Varios
                                     </a>
                                 </li>
@@ -89,15 +89,10 @@
                         <a href="#" class="nav__link">
                             <i class="uil uil-truck"></i> Entregas <i class="uil uil-arrow-right"></i>
                             <ul class="nav__sublist nav__subdeliver">
-                                <li class="nav__subitem">
-                                    <a href="#" class="nav__link">
-                                        <i class="uil uil-parcel"></i> Orden de Seguimiento 
-                                    </a>                                    
-                                </li>
 
                                 <li class="nav__subitem">
                                     <a href="#" class="nav__link">
-                                        <i class="uil uil-truck"></i> Nuestros Proveedores
+                                        <i class="uil uil-truck"></i> Nuestros Repartidores
                                     </a>                                    
                                 </li>
                             </ul>
@@ -132,30 +127,32 @@
                     btLogin.style.display = "flex";
                 }
             </script>
-            
         </nav>
     </header>
 
     <main class="main">
-
         <section class="main__container">
-
-        <!--Php-->
-            <!--Cada uno de estos se saca de la bd-->
+            <!--Muestra todos los productos-->
             <?php
 
                 include '../../resources/php/db.php';
 
-                $categoria = 6; /*Verdura es cod 1 y es pa testear OwO*/
 
-                $consulta = "SELECT * FROM producto where codigo_tipo_categoria = ? ";
+                if (!isset($_SESSION['codigo'])) { /*Manda al login si no esta logeado*/
+                    header('Location: login.php');
+                } else {
+
+                
+                $codigo = $_GET['codigo'];
+
+                $consulta = "SELECT * FROM producto where codigo = ? ";
                 $resultado = mysqli_prepare($conexion, $consulta);
 
                 if (!$resultado) {
                     echo "Error".mysqli_error($conexion);
                 }
 
-                $tabien = mysqli_stmt_bind_param($resultado, "i", $categoria);
+                $tabien = mysqli_stmt_bind_param($resultado, "i", $codigo);
 
                 $tabien = mysqli_stmt_execute($resultado);
 
@@ -163,7 +160,7 @@
                     echo "Error";
                 } else {
 
-                    $tabien = mysqli_stmt_bind_result($resultado, $r_cod, $r_codcat, $r_nombre, $r_descrip, $r_precio, $r_imagen, $r_cantidad, $r_codpues );
+                    $tabien = mysqli_stmt_bind_result($resultado, $r_cod, $r_cod_categoria, $r_nombre, $r_descripcion, $r_precio, $r_imagen, $r_cantidad, $r_codigo_puesto);
 
                     while( mysqli_stmt_fetch($resultado) ){
                         ?>
@@ -176,14 +173,11 @@
                                 </div>
                                 <div class="product__content">
                                     <h2 class="product__title"><?php echo $r_nombre.""; ?></h2>
-                                    <span class="product__subtitle">CLP <?php echo $r_precio.""; ?></span>
+                                    <span class="product__subtitle">CLP <?php echo $r_descripcion.""; ?></span>
                                     <p class="product__description">
-                                        <?php echo  $r_descrip.""; ?>
+                                        $ <?php echo  $r_precio.""; ?>
                                     </p>
-                                    <span class="product__source">Puesto: <?php echo "".$r_codpues; ?></span>
-                                    <a href="#" class="buy-item">
-                                        <i class="uil uil-shopping-bag"></i>
-                                    </a>
+                                    <span class="product__source">Cantidad: <?php echo $r_cantidad.""; ?></span>
                                 </div>                
                             </div>
                         </div>
@@ -191,9 +185,61 @@
                         <?php
                     }
                 }
+            }
             ?>
-<!--PhpFin-->
         </section>
+        <form action="verificapago.php" method="POST">
+                <select id="cantidad" name="cantidad">
+                    <option id="" name="">Seleccione una cantidad</option>
+                    <?php
+                        $c = 0;
+                        while ($c < (int)$r_cantidad) {
+                            ?>
+                            <option><?php echo (int)$c+1; ?></option>
+                            <?php
+                            $c=$c+1;
+                        }
+                    ?>
+                    
+                </select>
+                <div id="precio_final" name="precio_final">
+                    Total :
+                    <span id="precio_numero" name="precio_numero"></span>
+                        <script type="text/javascript">
+                            var dinero = "<?php echo (int)$_SESSION['dinero']; ?>"
+                            var precioProd = "<?php echo (int)$r_precio ?>"
+
+                            const selectCantidad = document.getElementById('cantidad'),
+                            divPrecioFinal = document.getElementById('precio_numero')
+
+                            selectCantidad.addEventListener('click', () =>{
+                                var selectedNumber = selectCantidad.options[selectCantidad.selectedIndex].value;
+                                if (selectedNumber!="Seleccione una cantidad"){
+                                    var precioFinal = precioProd*selectedNumber;
+                                    divPrecioFinal.innerHTML = precioFinal;
+                                    var dinero = <?php echo "".$_SESSION['dinero'] ?>;
+
+                                    if (precioFinal < dinero) {
+                                        divPrecioFinal.style.color = "green";
+                                    } else {
+                                        divPrecioFinal.style.color = "red";
+                                    }
+
+                                } else {
+                                    divPrecioFinal.innerHTML = ""
+                                }
+                            })
+
+                        </script>
+                </div>
+                <div id="tu_saldo" name="tu_saldo">
+                    Tu saldo : <span id="saldo"><?php echo "".$_SESSION['dinero']; ?></span>
+                </div>
+                <input type="hidden" id="nombre-producto" name="nombre-producto" value="<?php echo "".$r_nombre; ?>">
+                <input type="hidden" id="precio-producto" name="precio-producto" value="<?php echo "".$r_precio; ?>">
+                <input type="hidden" id="codigo-producto" name="codigo-producto" value="<?php echo "".$r_cod; ?>">
+                <input type="submit" id="comprar" name="comprar" value="Comprar">
+        </form>
     </main>
 
     <footer class="footer">
@@ -245,5 +291,6 @@
     <script src="../../resources/js/jquery-3.6.0.min.js"></script>
     <script src="../../resources/js/slide.js"></script>   
     <script src="../../resources/js/main.js"></script>
+    <script src="../../resources/js/pago.js"></script>
 </body>
 </html>

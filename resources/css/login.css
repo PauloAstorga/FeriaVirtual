@@ -2,7 +2,7 @@
     /*Colores*/
     --hue-color: 240;
     --login-color: hsl(var(--hue-color), 10%, 72%);
-
+    --footer-color: hsl(var(--hue-color), 17%, 35%);
     /*Fuente y tipografia*/
     --body-font: 'Poppins', sans-serif;
 
@@ -20,7 +20,7 @@
 }
 
 body {
-    background: var(--login-color);
+    background: var(--footer-color);
 }
 
 /*Login en todas las paginas*/

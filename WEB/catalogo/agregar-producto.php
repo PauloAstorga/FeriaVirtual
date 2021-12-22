@@ -6,18 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" type="text/css" href="../../resources/css/estilos.css" />
-    <link rel="stylesheet" type="text/css" href="../../resources/css/login.css" />
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css" />
     <link rel="stylesheet" type="text/css" href="../../resources/css/animations.css" />
     <link rel="stylesheet" type="text/css" href="../../resources/css/hover.css" />
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../resources/images/logo_icono.ico" /> 
-    <script src="../../resources/js/jquery-3.6.0.min.js"></script>
-
+    <link rel="stylesheet" type="text/css" href="../../resources/css/productos.css">
+    <link rel="shortcut icon" type="image/x-icon" href="../../resources/images/logo_icono.ico" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> 
+    
     <title>Feria Virtual</title>
 </head>
 
-<body id="body">
-    
+<body>
+<?php session_start();?>
     <header class="header" id="header">
         <nav class="nav container">
             
@@ -36,7 +36,7 @@
                 </h3>
                 <ul class="nav__list">
                     <li class="nav__item">
-                        <a href="../../index.html#home" class="nav__link">
+                        <a href="../../index.php" class="nav__link">
                             <i class="uil uil-home nav__icon"></i> Home
                         </a>
                     </li>
@@ -45,21 +45,40 @@
                         <a href="#" class="nav__link">
                             <i class="uil uil-shop"></i> Catálogo <i class="uil uil-arrow-right"></i>
                             <ul class="nav__sublist nav__subcatalogue">
+
                                 <li class="nav__subitem">
-                                    <a href="../catalogo/frutos_secos.html" class="nav__link">
+                                    <a href="nuestros-productos.php" class="nav__link">
+                                        <i class="uil uil-rainbow"></i> Todos los Productos
+                                    </a>
+                                </li>
+
+                                <li class="nav__subitem">
+                                    <a href="frutos-secos.php" class="nav__link">
                                         <i class="uil uil-rainbow"></i> Frutos Secos
                                     </a>
                                 </li>
                                     
                                 <li class="nav__subitem">
-                                    <a href="../catalogo/frutas.html" class="nav__link">
+                                    <a href="frutas.php" class="nav__link">
                                         <i class="uil uil-wind-sun"></i> Frutas
                                     </a>
                                 </li>
 
                                 <li class="nav__subitem">
-                                    <a href="../catalogo/verduras.html" class="nav__link">
+                                    <a href="verduras.php" class="nav__link">
                                         <i class="uil uil-cloud-showers-heavy"></i> Verduras
+                                    </a>
+                                </li>
+
+                                <li class="nav__subitem">
+                                    <a href="carnes.php" class="nav__link">
+                                        <i class="uil uil-cloud-showers-heavy"></i> Carnes
+                                    </a>
+                                </li>
+
+                                <li class="nav__subitem">
+                                    <a href="varios.php" class="nav__link">
+                                        <i class="uil uil-cloud-showers-heavy"></i> Varios
                                     </a>
                                 </li>
                             </ul>
@@ -70,15 +89,10 @@
                         <a href="#" class="nav__link">
                             <i class="uil uil-truck"></i> Entregas <i class="uil uil-arrow-right"></i>
                             <ul class="nav__sublist nav__subdeliver">
-                                <li class="nav__subitem">
-                                    <a href="../entregas/orden-seguimiento.html" class="nav__link">
-                                        <i class="uil uil-parcel"></i> Orden de Seguimiento 
-                                    </a>                                    
-                                </li>
 
                                 <li class="nav__subitem">
-                                    <a href="../entregas/nuestros-proveedores.html" class="nav__link">
-                                        <i class="uil uil-truck"></i> Nuestros Proveedores
+                                    <a href="../entregas/nuestros-repartidores.php" class="nav__link">
+                                        <i class="uil uil-truck"></i> Nuestros Repartidores
                                     </a>                                    
                                 </li>
                             </ul>
@@ -89,40 +103,37 @@
                 <i class="uil uil-times nav__close" id="nav-close"></i>
             </div>
 
-            <div class="back__button slide-in-right">
-                <a href="login.html" id="back__button" class="nav__item back__link button">
-                    <i class="uil uil-left-arrow-from-left"></i> Volver
+            <div class="nav__login bounce-in-top">
+                <a href="WEB/login/login.php" id="login__button" class="nav__item button">
+                    <i class="uil uil-user nav__login"></i> Conectarse
                 </a>
             </div>
             
         </nav>
     </header>
 
+    
     <main class="main">
 
-        <div class="form__container">
+        <?php
+            $consulta = "SELECT nombre FROM "
+        ?>
+        <section class="main__container">
 
-            <div class="login__title">
-                <h1 class="login__title-text">Recupera tu cuenta</h1>
-            </div>
+            <form action="agrega.php" method="POST">
 
-            <form action="" class="form">
+                <input type="text" id="nombre" name="nombre" placeholder="Nombre">
+                <select id="categoria" name="categoria">
+                    <option id="" name="">Seleccione una categoria</option>
+                </select>
+                <textarea id="descripcion" name="descripcion" placeholder="Descripcion"></textarea>
+                <input type="number" id="precio" name="precio" placeholder="Precio">
+                <input type="number" id="cantidad" name="cantidad" placeholder="Cantidad">
+                <input type="file" id="imagen" name="imagen">
 
-                <p class="recover__disclaimer">
-                    Si la direccion de correo coincide con alguna registrada, enviaremos un enlace de recuperación de contraseña.
-                </p>
-                <label for="correo">Correo</label>
-                <div class="input__container">
-                    <i class="uil uil-user"></i>
-                    <input id="correo" class="input" type="email" placeholder="mail@example.com">
-                </div>
-                
-                <input id="conectarse" class="input submit-button" type="submit" value="Enviar">
             </form>
-
-            
-        </div>
-
+        
+        </section>
     </main>
 
     <footer class="footer">
@@ -171,7 +182,8 @@
             </div>
         </div>
     </footer>
-    <script src="../../resources/js/jquery-3.6.0.min.js"></script>    
+    <script src="../../resources/js/jquery-3.6.0.min.js"></script>
+    <script src="../../resources/js/slide.js"></script>   
     <script src="../../resources/js/main.js"></script>
 </body>
 </html>

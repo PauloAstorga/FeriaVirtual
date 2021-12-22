@@ -1,0 +1,29 @@
+.footer {
+    background: var(--footer-color);
+}
+
+
+tr#table_row {
+    background: whitesmoke;
+    display: inline-flex;
+    flex-direction: column;
+}
+
+table#table {
+    border: solid linear-gradient(45deg,blue,cyan);
+    display: inline-table;
+}
+
+.account__information {
+    background: linear-gradient(178deg, pink, purple);
+    margin: 0 auto;
+}
+
+section.main__container {
+    margin-top: calc(var(--mb-3)*2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}

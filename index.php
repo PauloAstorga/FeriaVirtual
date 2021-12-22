@@ -18,7 +18,7 @@
 </head>
 
 <body id="body">
-    
+    <?php session_start(); ?>
     <header class="header" id="header">
         <nav class="nav container">
             
@@ -90,30 +90,85 @@
                         <a href="#" class="nav__link">
                             <i class="uil uil-truck"></i> Entregas <i class="uil uil-arrow-right"></i>
                             <ul class="nav__sublist nav__subdeliver">
-                                <li class="nav__subitem">
-                                    <a href="#" class="nav__link">
-                                        <i class="uil uil-parcel"></i> Orden de Seguimiento 
-                                    </a>                                    
-                                </li>
 
                                 <li class="nav__subitem">
-                                    <a href="#" class="nav__link">
-                                        <i class="uil uil-truck"></i> Nuestros Proveedores
+                                    <a href="WEB/entregas/nuestros-repartidores.php" class="nav__link">
+                                        <i class="uil uil-truck"></i> Nuestros Repartidores
                                     </a>                                    
                                 </li>
                             </ul>
                         </a>
                     </li>
+
+                    <li class="nav__item nav__account">
+                        <a href="WEB/pago/transacciones.php" class="nav__link">
+                            <i class="uil uil-analytics"></i> Cuenta
+                        </a>
+                    </li>
+
+                    <?php
+                        if (isset($_SESSION['nombre'])) {
+                            $cod_tipo = $_SESSION['cod_tipo_usuario'];
+                            if ($cod_tipo == 4) {
+                                echo '<li class="nav__item nav__vendor">';
+                                echo '<a href="WEB/catalogo/agregar-producto.php" class="nav__link">';
+                                echo '<i class="uil uil-clipboard-notes"></i> Productos';
+                                echo "</a>";
+                                echo "</li>";
+                            }
+                        }
+                    ?>
                 </ul>
+
+                <?php
+                
+                    if (isset($_SESSION['nombre'])) {?>
+                    
+                        <div class="user_name">
+                            <?php
+                            echo "<div class='user__info'>";
+                            echo "".$_SESSION['nombre'];
+                            echo "</div>";
+                            ?>
+                        </div>
+
+                        <div class="user_mail">
+                            <?php
+                            echo "".$_SESSION['correo'];
+                            ?>
+                        </div>
+                    <?php
+                    }
+                ?>
 
                 <i class="uil uil-times nav__close" id="nav-close"></i>
             </div>
 
+            
             <div class="nav__login bounce-in-top">
-                <a href="WEB/login/login.php" id="login__button" class="nav__item button">
+                <a href="WEB/login/login.php" id="login__button log_button" class="nav__item button">
                     <i class="uil uil-user nav__login"></i> Conectarse
                 </a>
             </div>
+
+            <div class="nav__login bounce-in-top">
+                <a href="WEB/perfil/miperfil.php" id="login__button profile_button" class="nav__item button">
+                <i class="uil uil-user-circle"></i> Mi Perfil
+                </a>
+            </div>
+
+            <script>
+                const btProfile = document.getElementById('login__button profile_button'),
+                        btLogin = document.getElementById('login__button log_button')
+
+                if (<?php echo "".$_SESSION['log']; ?>) {
+                    btLogin.style.display = "none";
+                    btProfile.style.display = "flex";
+                } else {
+                    btProfile.style.display = "none";
+                    btLogin.style.display = "flex";
+                }
+            </script>
             
         </nav>
     </header>
@@ -186,49 +241,33 @@
                 </div>
             </section>
 
-            <section class="product__information">
+            
+            <section class="item__information">
+                <h3 class="item_first_title">¡Nuestros Productos!</h3>
                 <!--La idea es sacar unos 6 productos de la BD al azar-->
-                <div class="product__container">
-                    <img class="product__image" alt="product-image" src="resources/images/maravilla.png">
-                    <h3 class="product__title">Product Title</h3>
-                    <p class="product_description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus animi soluta amet itaque alias, quam labore expedita ducimus reiciendis ratione.</p>
-                    <i class="uil uil-shopping-bag"></i> 1500 CLP
-                </div>
+                <?php
+                    include 'resources/php/db.php';
+                    $consulta = "SELECT * FROM producto ORDER BY RAND() LIMIT 4";
+                    $resultado = mysqli_query($conexion, $consulta);
 
-                <div class="product__container">
-                    <img class="product__image" alt="product-image" src="resources/images/maravilla.png">
-                    <h3 class="product__title">Product Title</h3>
-                    <p class="product_description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus animi soluta amet itaque alias, quam labore expedita ducimus reiciendis ratione.</p>
-                    <i class="uil uil-shopping-bag"></i> 1500 CLP
-                </div>
+                    while ($fila = mysqli_fetch_row($resultado)) {?>
 
-                <div class="product__container">
-                    <img class="product__image" alt="product-image" src="resources/images/maravilla.png">
-                    <h3 class="product__title">Product Title</h3>
-                    <p class="product_description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus animi soluta amet itaque alias, quam labore expedita ducimus reiciendis ratione.</p>
-                    <i class="uil uil-shopping-bag"></i> 1500 CLP
-                </div>
+                        <div class="item__container">
 
-                <div class="product__container">
-                    <img class="product__image" alt="product-image" src="resources/images/maravilla.png">
-                    <h3 class="product__title">Product Title</h3>
-                    <p class="product_description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus animi soluta amet itaque alias, quam labore expedita ducimus reiciendis ratione.</p>
-                    <i class="uil uil-shopping-bag"></i> 1500 CLP
-                </div>
+                            <div class="item_image-container">
+                                <img class="item_image" alt="producto" src="<?php echo "".$fila[5]; ?>">
+                            </div>
 
-                <div class="product__container">
-                    <img class="product__image" alt="product-image" src="resources/images/maravilla.png">
-                    <h3 class="product__title">Product Title</h3>
-                    <p class="product_description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus animi soluta amet itaque alias, quam labore expedita ducimus reiciendis ratione.</p>
-                    <i class="uil uil-shopping-bag"></i> 1500 CLP
-                </div>
-
-                <div class="product__container">
-                    <img class="product__image" alt="product-image" src="resources/images/maravilla.png">
-                    <h3 class="product__title">Product Title</h3>
-                    <p class="product_description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus animi soluta amet itaque alias, quam labore expedita ducimus reiciendis ratione.</p>
-                    <i class="uil uil-shopping-bag"></i> 1500 CLP
-                </div>
+                            <div class="item_content">
+                                <h3 class="item_name"><?php echo "".$fila[2]; ?></h3>
+                                <p class="item_description"><?php echo "".$fila[3] ?></p>
+                                <i class="uil uil-shopping-bag"></i> CLP <?php echo "".$fila[4]; ?>
+                            </div>
+                        </div>
+                    <?php
+                    }
+                    ?>
+                
                 <!---->
             </section>
                 
@@ -304,9 +343,7 @@
                 $('.main').css({'display':'block'});
                 $('.footer').css({'display':'block'});
                 $('.basket').css({'display':'none'})
-            }, 3900)
-            
-            
+            }, 3)
         });
     </script>
 </body>

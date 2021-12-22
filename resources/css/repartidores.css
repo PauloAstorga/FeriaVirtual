@@ -1,0 +1,17 @@
+.repartidor__row {
+    margin: var(--mb-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+section.main__container {
+    margin-top: calc(var(--mb-3)*2);
+}
+
+.repartidor__container.producto {
+    background: var(--first-color-lighter);
+    border: solid var(--first-color) 1px;
+    border-radius: 1rem 5rem;
+    padding: 1.3rem;
+}

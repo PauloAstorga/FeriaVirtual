@@ -17,7 +17,7 @@
 </head>
 
 <body>
-    <?php session_start(); ?>
+    <?php session_start(); ?> 
     <header class="header" id="header">
         <nav class="nav container">
             
@@ -146,7 +146,7 @@
 
                 include '../../resources/php/db.php';
 
-                $categoria = 6; /*Verdura es cod 1 y es pa testear OwO*/
+                $categoria = 7; /*Verdura es cod 1 y es pa testear OwO*/
 
                 $consulta = "SELECT * FROM producto where codigo_tipo_categoria = ? ";
                 $resultado = mysqli_prepare($conexion, $consulta);

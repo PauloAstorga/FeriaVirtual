@@ -6,22 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" type="text/css" href="../../resources/css/estilos.css" />
-    <link rel="stylesheet" type="text/css" href="../../resources/css/login.css" />
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css" />
     <link rel="stylesheet" type="text/css" href="../../resources/css/animations.css" />
     <link rel="stylesheet" type="text/css" href="../../resources/css/hover.css" />
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../resources/images/logo_icono.ico" /> 
-    <script src="../../resources/js/jquery-3.6.0.min.js"></script>
-
+    <link rel="stylesheet" type="text/css" href="../../resources/css/repartidores.css />
+    <link rel="shortcut icon" type="image/x-icon" href="../../resources/images/logo_icono.ico" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> 
+    
     <title>Feria Virtual</title>
 </head>
 
-<body id="body">
-    
+<body>
+    <?php session_start();?>
     <header class="header" id="header">
         <nav class="nav container">
             
-            <div class="nav__logo-container">
+        <div class="nav__logo-container">
                 <div class="nav__toggle" id="nav-toggle">
                     <i class="uil uil-list-ul"></i>
                 </div>
@@ -36,7 +36,7 @@
                 </h3>
                 <ul class="nav__list">
                     <li class="nav__item">
-                        <a href="../../index.html#home" class="nav__link">
+                        <a href="../../index.php" class="nav__link">
                             <i class="uil uil-home nav__icon"></i> Home
                         </a>
                     </li>
@@ -45,21 +45,40 @@
                         <a href="#" class="nav__link">
                             <i class="uil uil-shop"></i> Catálogo <i class="uil uil-arrow-right"></i>
                             <ul class="nav__sublist nav__subcatalogue">
+
                                 <li class="nav__subitem">
-                                    <a href="../catalogo/frutos_secos.html" class="nav__link">
+                                    <a href="../catalogo/nuestros-productos.php" class="nav__link">
+                                        <i class="uil uil-rainbow"></i> Todos los Productos
+                                    </a>
+                                </li>
+
+                                <li class="nav__subitem">
+                                    <a href="../catalogo/frutos-secos.php" class="nav__link">
                                         <i class="uil uil-rainbow"></i> Frutos Secos
                                     </a>
                                 </li>
                                     
                                 <li class="nav__subitem">
-                                    <a href="../catalogo/frutas.html" class="nav__link">
+                                    <a href="../catalogo/frutas.php" class="nav__link">
                                         <i class="uil uil-wind-sun"></i> Frutas
                                     </a>
                                 </li>
 
                                 <li class="nav__subitem">
-                                    <a href="../catalogo/verduras.html" class="nav__link">
+                                    <a href="../catalogo/verduras.php" class="nav__link">
                                         <i class="uil uil-cloud-showers-heavy"></i> Verduras
+                                    </a>
+                                </li>
+
+                                <li class="nav__subitem">
+                                    <a href="../catalogo/carnes.php" class="nav__link">
+                                        <i class="uil uil-cloud-showers-heavy"></i> Carnes
+                                    </a>
+                                </li>
+
+                                <li class="nav__subitem">
+                                    <a href="../catalogo/varios.php" class="nav__link">
+                                        <i class="uil uil-cloud-showers-heavy"></i> Varios
                                     </a>
                                 </li>
                             </ul>
@@ -70,15 +89,10 @@
                         <a href="#" class="nav__link">
                             <i class="uil uil-truck"></i> Entregas <i class="uil uil-arrow-right"></i>
                             <ul class="nav__sublist nav__subdeliver">
-                                <li class="nav__subitem">
-                                    <a href="../entregas/orden-seguimiento.html" class="nav__link">
-                                        <i class="uil uil-parcel"></i> Orden de Seguimiento 
-                                    </a>                                    
-                                </li>
 
                                 <li class="nav__subitem">
-                                    <a href="../entregas/nuestros-proveedores.html" class="nav__link">
-                                        <i class="uil uil-truck"></i> Nuestros Proveedores
+                                    <a href="#" class="nav__link">
+                                        <i class="uil uil-truck"></i> Nuestros Repartidores
                                     </a>                                    
                                 </li>
                             </ul>
@@ -89,80 +103,42 @@
                 <i class="uil uil-times nav__close" id="nav-close"></i>
             </div>
 
-            <div class="back__button slide-in-right">
-                <a href="login.html" id="back__button" class="nav__item back__link button">
-                    <i class="uil uil-left-arrow-from-left"></i> Volver
+            <div class="nav__login bounce-in-top">
+                <a href="../login/login.php" id="login__button log_button" class="nav__item button">
+                    <i class="uil uil-user nav__login"></i> Conectarse
                 </a>
             </div>
+            
+            <div class="nav__login bounce-in-top">
+                <a href="../perfil/miperfil.php" id="login__button profile_button" class="nav__item button">
+                <i class="uil uil-user-circle"></i> Mi Perfil
+                </a>
+            </div>
+
+            <script>
+                const btProfile = document.getElementById('login__button profile_button'),
+                        btLogin = document.getElementById('login__button log_button')
+
+                if (<?php echo isset($_SESSION['log']); ?>) {
+                    btLogin.style.display = "none";
+                    btProfile.style.display = "flex";
+                } else {
+                    btProfile.style.display = "none";
+                    btLogin.style.display = "flex";
+                }
+            </script>
             
         </nav>
     </header>
 
-    <main class="main slide-in-left">
-
-        <div class="form__container slide-in-bck-center">
-
-            <div class="login__title">
-                <h1 class="login__title-text">¡Crea tu cuenta!</h1>
+    <main class="main">
+        <section class="main__container">
+            <div class="error_container">
+                <p class="error_text">
+                    Hubo un error con su solicitud ya sea por datos incorrectos o porque si.
+                </p>
             </div>
-
-            <form action="" class="form">
-
-                <label for="nombre">Nombre</label>
-                <div class="input__container">
-                    <i class="uil uil-elipsis-double-v-alt"></i>
-                    <input id="nombre" class="input" type="text" placeholder="Nombre">
-                </div>
-
-                <label for="apellido">Apellido</label>
-                <div class="input__container">
-                    <i class="uil uil-document-layout-left"></i>
-                    <input id="apellido" class="input" type="text" placeholder="Apellido">
-                </div>
-
-                <label for="correo">Correo</label>
-                <div class="input__container">
-                    <i class="uil uil-user"></i>
-                    <input id="correo" class="input" type="email" placeholder="mail@example.com">
-                </div>
-
-                <label for="contrasena">Contraseña</label>
-                <div class="input__container">
-                    <i class="uil uil-key-skeleton-alt"></i>
-                    <input id="contrasena" class="input" type="password" placeholder="********">
-                </div>
-
-                <label for="contrasena2">Repita su Contraseña</label>
-                <div class="input__container">
-                    <i class="uil uil-key-skeleton-alt"></i>
-                    <input id="contrasena2" class="input" type="password" placeholder="********">
-                </div>
-
-                <label for="comuna">Ciudad</label>
-                <div class="input__container">
-                    <i class="uil uil-location-pin-alt"></i>
-                    <input id="ciudad" class="input" type="text" placeholder="Seleccione una...">
-                </div>
-
-                <label for="comuna">Comuna</label>
-                <div class="input__container">
-                    <i class="uil uil-university"></i>
-                    <input id="comuna" class="input" type="text" placeholder="Seleccione una...">
-                </div>
-
-                <label for="tipo_cta">Tipo de Cuenta</label>
-                <div class="input__container">
-                    <i class="uil uil-user-arrows"></i>
-                    <input id="tipo_cta" class="input" type="text" placeholder="Selecciona una...">
-                </div>
-
-                <input id="conectarse" class="input submit-button" type="submit" value="Crear Cuenta">
-            </form>
-
-            
-
-        </div>
-
+        </section>            
     </main>
 
     <footer class="footer">
@@ -211,7 +187,9 @@
             </div>
         </div>
     </footer>
-    <script src="../../resources/js/jquery-3.6.0.min.js"></script>    
+    <script src="../../resources/js/jquery-3.6.0.min.js"></script>
+    <script src="../../resources/js/slide.js"></script>   
     <script src="../../resources/js/main.js"></script>
+    <script src="../../resources/js/pago.js"></script>
 </body>
 </html>

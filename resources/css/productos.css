@@ -1,0 +1,28 @@
+.main {
+    margin-top: calc(var(--header-height)*2);
+}
+
+#imagen {
+    border-radius: 7.5rem 1rem;
+    border-style: solid;
+    border-color: var(--first-color);
+}
+
+.product__information {
+    padding: var(--mb-2-5);
+    column-count: 1;
+    column-gap: 40px;
+    column-span: all;
+}
+
+.product__image {
+}
+
+.product__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    margin: var(--mb-2-5);
+}

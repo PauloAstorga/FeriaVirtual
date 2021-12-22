@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 /*==========*/
 
+
 /*======Variables======*/
 :root {
     --header-height: 3rem;
@@ -89,7 +90,7 @@ body {
     margin: 0;
     font-family: var(--body-font);
     font-size: var(--normal-font-size);
-    background: #c77dff;
+    background: var(--body-color);
     color: var(--text-color);
     transition: all 0.3s ease-in-out;
 }
@@ -548,30 +549,11 @@ header {
     margin: 0 var(--mb-2-5);
 }
 
-.product__container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-    margin: var(--mb-2-5);
-}
-
 .home-logo {
     width: 50%;
     align-self: center;
 }
 
-.product__information {
-    padding: var(--mb-2-5);
-    column-count: 1;
-    column-gap: 40px;
-    column-span: all;
-}
-
-.product__image {
-    width: 50%;
-}
 /*==========*/
 
 /*======Media Query (responsividad)======*/
@@ -590,10 +572,57 @@ header {
         align-items: center;
     }
 
-    
 }
 
 @media screen and (max-width: 680px){
 
 }
 /*==========*/
+
+/*¨Reparto*/
+
+.repartidor__row {
+    margin: var(--mb-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+section.main__container {
+    margin-top: calc(var(--mb-3)*2);
+}
+
+.repartidor__container.producto {
+    background: var(--first-color-lighter);
+    border: solid var(--first-color) 1px;
+    border-radius: 1rem 5rem;
+    padding: 1.3rem;
+}
+
+/*-----*/
+
+img.item_image {
+    width: 60%;
+    border: solid var(--first-color-alt);
+    border-radius: 1rem 5rem;
+}
+
+.item__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    margin: var(--mb-2) 0;
+}
+
+.item_image-container {
+    text-align: center;
+}
+
+.item_content {
+    text-align: center;
+}
+
+.item_first_title {
+    text-align: center;
+}
