@@ -120,7 +120,7 @@
                 $cod_usuario = $_SESSION['codigo'];
 
 
-                $consulta = "SELECT * FROM usuario WHERE codigo = ?";
+                $consulta = "SELECT * FROM puesto WHERE codigo_usuario = ?";
                 $resultado = mysqli_prepare($conexion, $consulta);
 
                 if (!$resultado) {
@@ -133,167 +133,27 @@
                 if (!$ok) {
                     echo "Error con ok: ".mysqli_error($conexion);
                 } else {
-                    $ok = mysqli_stmt_bind_result($resultado, $cod, $rut, $nombre, $apellido, $correo, $telefono, $pwd, $direccion, $tipo);
+                    $ok = mysqli_stmt_bind_result($resultado, $cod, $fecha, $patente, $codigo_direccion, $codigo_usuario);
                     while (mysqli_stmt_fetch($resultado)){
             ?>
-                    <div class="profile_content">
-                        <div class="profile_title">
-                            <h1 id="title" class="title">Perfil de Usuario</h1>
-                        </div>
-                        <form id="form_profile" class="form" action="modificaperfil.php" method="POST">
-                            <input type="text" id="code" name="code" disabled value="<?php echo "".$cod; ?>">
-                            <input type="hidden" id="codigo" name="codigo" value="<?php echo "".$cod; ?>">
-                            <input type="text" id="dni" name="dni" value="<?php echo "".$rut; ?>">
-                            <input type="hidden" id="rut" name="rut" value="<?php echo "".$rut; ?>">
-
-                            <input type="text" name="nombre" id="nombre" value="<?php echo "".$nombre; ?>">
-                            <input type="text" name="apellido" id="apellido" value="<?php echo "".$apellido; ?>">
-                            <input type="email" name="correo" id="correo" value="<?php echo "".$correo; ?>">
-                            <input type="text" name="telefono" id="telefono" value="<?php echo "".$telefono; ?>">
-                            <input type="password" name="contrasena" id="contrasena" placeholder="Contraseña Antigua">
-                            <input type="password" name="newcontrasena" id="newcontrasena" placeholder="Nueva Contraseña">
-
-                            <input type="submit" id="enviar" name="enviar" value="Modificar">
-
-                            <?php
-                                if (isset($_GET['pwd'])) {
-                                    echo '<div id="error_msg" class="error_msg" style="color:red">Sus contraseñas no coinciden</div>';
-                                } else if (isset($_GET['change'])) {
-                                    echo '<div id="nice_msg" class="nice_msg" style="color:green">Sus datos fueron actualizados :)</div>';
-                                }
-                            ?>
-                        </form>
-                    </div>
-            <?php
-                    }
-                }
-            ?>
-
-            <?php
-
-
-            $numeroRegiones = NULL;
-            $numeroCiudades = NULL;
-            $numeroComunas = NULL;
-
-            $consulta_numero = "SELECT COUNT(codigo) AS 'cont' FROM region";
-            $resultado = mysqli_query($conexion, $consulta_numero);
-
-            if (!$resultado) {
-                echo "Error con resultado: ".mysqli_error($conexion);
-            }
-
-            while ($fila = mysqli_fetch_row($resultado)) {
-                $numeroRegiones=$fila[0];
-            }
-
-            $resultado->free_result();
-
-            $consulta_regiones = "SELECT nombre FROM region";
-            $consulta_ciudades = "SELECT nombre FROM ciudad";
-            $consulta_comunas = "SELECT nombre FROM comuna";
-            $consulta_tipo = "SELECT tipo FROM tipo_usuario WHERE codigo=1 OR codigo=4 OR codigo=5";
-
-            $resultado = mysqli_query($conexion, $consulta_regiones);
-
-            if (!$resultado) {
-                echo "Error con resultado: ".mysqli_error($conexion);
-            }
-
-            if ($_SESSION['cod_tipo_usuario']==4){
-            ?>
-                <div class="puesto_container">
+                    <div class="puesto_container">
                     <div class="puesto_title">
-                        <h3 class="title">Agregar Puesto</h3>
+                        <h3 class="title">Modificar Puesto</h3>
                     </div>
-                    <form action="agregar_puesto.php" method="POST" class="form">
-                        <input type="text" id="patente" name="patente" placeholder="Patente">
+                    <form action="verifica_modifica.php" method="POST" class="form">
+                        <input disabled type="text" id="code" name="code" value="<?php echo $cod ?>">
+                        <input type="hidden" id="codigo" name="codigo" value="<?php echo $cod ?>">
+                        <input type="text" id="patente" name="patente" value="<?php echo $patente ?>">
 
-                        <div class="input__container">
-                                <i class="uil uil-sign-alt"></i>
-                                <select id="region" name="region" required>
-                                    <option id="vacio" name="vacio">Seleccione una Región</option>
-                                    <?php
-                                        while ($fila = mysqli_fetch_row($resultado)) {
-                                            ?>
-                                            <option><?php echo "".$fila[0]; ?></option>
-                                            <?php
-                                        }
-                                        $resultado->free_result();
-                                    ?>
-                                </select>
-                        </div>
-
-                        <div class="input__container">
-                                <i class="uil uil-sign-alt"></i>
-                                <select id="comuna" name="comuna" required>
-                                    <option id="vacio" name="vacio">Seleccione una Comuna</option>
-                                    <?php
-                                    $resultado = mysqli_query($conexion, $consulta_comunas);
-                                        while ($fila = mysqli_fetch_row($resultado)) {
-                                            ?>
-                                            <option><?php echo "".$fila[0]; ?></option>
-                                            <?php
-                                        }
-                                        $resultado->free_result();
-                                    ?>
-                                </select>
-                        </div>
-                        <input type="text" id="direccion" name="direccion" placeholder="Direccion">
+                        
+                        <input type="text" id="direccion" name="direccion" value="<?php echo $codigo_direccion ?>">
 
                         <input type="submit" id="enviar" name="enviar" value="Crear Puesto">
                     </form>
                 </div>
-
-                <?php
-
-
-                $select_puesto = "SELECT * FROM puesto WHERE codigo_usuario = ?";
-                $codigo_usuario = $_SESSION['codigo'];
-                $resultado = mysqli_prepare($conexion, $select_puesto);
-
-                if (!$resultado) {
-                    echo "Error con resultado: ".mysqli_error($conexion);
+            <?php
+                    }
                 }
-
-                $ok = mysqli_stmt_bind_param($resultado,"i",$codigo_usuario);
-                $ok = mysqli_stmt_execute($resultado);
-
-                if (!$ok) {
-                    echo "Error con ok puesto: ".mysqli_error($conexion);
-                }
-
-                $ok = mysqli_stmt_bind_result($resultado, $p_cod, $p_date, $p_patente, $p_direccion, $p_usuario);
-                while (mysqli_stmt_fetch($resultado)) {
-                    ?>
-                    <h3 class="title">Puestos que tienes</h3>
-                        <div class="puesto_container">
-                            <table id="table">
-                                <tr id="table_row">
-                                    <td id="table_data">Codigo</td>
-                                    <td id="table_data">Fecha</td>
-                                    <td id="table_data">Patente</td>
-                                    <td id="table_data">Direccion</td>
-                                    <td id="table_data">Usuario</td>
-                                </tr>
-
-                                <tr id="table_row">
-                                    <td id="table_data"><?php echo "".$p_cod; ?></td>
-                                    <td id="table_data"><?php echo "".$p_date; ?></td>
-                                    <td id="table_data"><?php echo "".$p_patente; ?></td>
-                                    <td id="table_data"><?php echo "".$p_direccion; ?></td>
-                                    <td id="table_data"><?php echo "".$p_usuario; ?></td>                                    
-                                </tr>
-                            </table>                            
-                        </div>
-
-                        <div class="acciones">
-                            <a href="eliminar_puesto.php?cod=<?php echo $p_cod; ?>">Eliminar</a>
-                            <a href="modificar_puesto.php?cod=<?php echo $p_cod; ?>">Modificar</a>
-                        </div>
-                    <?php
-                }
-            }
             ?>
 
         </section>
