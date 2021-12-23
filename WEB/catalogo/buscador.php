@@ -53,32 +53,8 @@
                                 </li>
 
                                 <li class="nav__subitem">
-                                    <a href="frutos-secos.php" class="nav__link">
-                                        <i class="uil uil-rainbow"></i> Frutos Secos
-                                    </a>
-                                </li>
-                                    
-                                <li class="nav__subitem">
-                                    <a href="frutas.php" class="nav__link">
-                                        <i class="uil uil-wind-sun"></i> Frutas
-                                    </a>
-                                </li>
-
-                                <li class="nav__subitem">
-                                    <a href="verduras.php" class="nav__link">
-                                        <i class="uil uil-cloud-showers-heavy"></i> Verduras
-                                    </a>
-                                </li>
-
-                                <li class="nav__subitem">
-                                    <a href="carnes.php" class="nav__link">
-                                        <i class="uil uil-cloud-showers-heavy"></i> Carnes
-                                    </a>
-                                </li>
-
-                                <li class="nav__subitem">
-                                    <a href="varios.php" class="nav__link">
-                                        <i class="uil uil-cloud-showers-heavy"></i> Varios
+                                    <a href="#" class="nav__link">
+                                        <i class="uil uil-search"></i> Buscador
                                     </a>
                                 </li>
                             </ul>
@@ -103,11 +79,27 @@
                 <i class="uil uil-times nav__close" id="nav-close"></i>
             </div>
 
-            <div class="nav__login bounce-in-top">
-                <a href="WEB/login/login.php" id="login__button" class="nav__item button">
-                    <i class="uil uil-user nav__login"></i> Conectarse
-                </a>
-            </div>
+            <?php
+                if (isset($_SESSION['log'])) {
+                    ?>
+                    
+                    <a id="login__button" class="nav__item button bounce-in-top" href="WEB/login/logout.php">
+                    <i class="uil uil-signout"></i>Logout</a>
+                    <div class="nav__login bounce-in-top">
+                        <a href="WEB/perfil/miperfil.php" id="login__button profile_button" class="nav__item button">
+                        <i class="uil uil-user-circle"></i> Mi Perfil
+                        </a>
+                    </div>
+                <?php
+                } else {?>
+                    <div class="nav__login bounce-in-top">
+                        <a href="WEB/login/login.php" id="login__button log_button" class="nav__item button">
+                            <i class="uil uil-user nav__login"></i> Conectarse
+                        </a>
+                    </div>
+                <?php
+                }
+            ?>
             
         </nav>
     </header>
@@ -115,22 +107,28 @@
     
     <main class="main">
 
-        <?php
-            $consulta = "SELECT nombre FROM "
-        ?>
         <section class="main__container">
 
-            <form action="agrega.php" method="POST">
+            <h3 class="title">Buscador</h3>
+            <form class="form" action="busca.php" method="POST">
 
                 <input type="text" id="nombre" name="nombre" placeholder="Nombre">
                 <select id="categoria" name="categoria">
                     <option id="" name="">Seleccione una categoria</option>
                 </select>
-                <textarea id="descripcion" name="descripcion" placeholder="Descripcion"></textarea>
-                <input type="number" id="precio" name="precio" placeholder="Precio">
-                <input type="number" id="cantidad" name="cantidad" placeholder="Cantidad">
-                <input type="file" id="imagen" name="imagen">
-
+                <select id="precio" name="precio">
+                    <option id="" name="">Seleccione rango de Precio</option>
+                    <option id="1000" name="1000">< CLP 1000</option>
+                    <option id="5000" name="5000">< CLP 5000</option>
+                    <option id="15000" name="15000">< CLP 15000</option>
+                </select>
+                <select id="stock" name="stock">
+                    <option id="" name="">Seleccione Stock</option>
+                    <option id="10" name="10">< 10 Unidades</option>
+                    <option id="50" name="50">< 50 Unidades</option>
+                    <option id="150" name="150">< 150 Unidades</option>
+                </select>
+                <input type="submit" id="enviar" name="enviar" value="Buscar">
             </form>
         
         </section>

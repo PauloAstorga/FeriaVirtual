@@ -17,7 +17,7 @@
 </head>
 
 <body>
-    
+<?php session_start();?>
     <header class="header" id="header">
         <nav class="nav container">
             
@@ -53,32 +53,8 @@
                                 </li>
 
                                 <li class="nav__subitem">
-                                    <a href="frutos-secos.php" class="nav__link">
-                                        <i class="uil uil-rainbow"></i> Frutos Secos
-                                    </a>
-                                </li>
-                                    
-                                <li class="nav__subitem">
-                                    <a href="frutas.php" class="nav__link">
-                                        <i class="uil uil-wind-sun"></i> Frutas
-                                    </a>
-                                </li>
-
-                                <li class="nav__subitem">
-                                    <a href="verduras.php" class="nav__link">
-                                        <i class="uil uil-cloud-showers-heavy"></i> Verduras
-                                    </a>
-                                </li>
-
-                                <li class="nav__subitem">
-                                    <a href="carnes.php" class="nav__link">
-                                        <i class="uil uil-cloud-showers-heavy"></i> Carnes
-                                    </a>
-                                </li>
-
-                                <li class="nav__subitem">
-                                    <a href="varios.php" class="nav__link">
-                                        <i class="uil uil-cloud-showers-heavy"></i> Varios
+                                    <a href="#" class="nav__link">
+                                        <i class="uil uil-search"></i> Buscador
                                     </a>
                                 </li>
                             </ul>
@@ -89,15 +65,10 @@
                         <a href="#" class="nav__link">
                             <i class="uil uil-truck"></i> Entregas <i class="uil uil-arrow-right"></i>
                             <ul class="nav__sublist nav__subdeliver">
-                                <li class="nav__subitem">
-                                    <a href="#" class="nav__link">
-                                        <i class="uil uil-parcel"></i> Orden de Seguimiento 
-                                    </a>                                    
-                                </li>
 
                                 <li class="nav__subitem">
-                                    <a href="#" class="nav__link">
-                                        <i class="uil uil-truck"></i> Nuestros Proveedores
+                                    <a href="../entregas/nuestros-repartidores.php" class="nav__link">
+                                        <i class="uil uil-truck"></i> Nuestros Repartidores
                                     </a>                                    
                                 </li>
                             </ul>
@@ -108,91 +79,99 @@
                 <i class="uil uil-times nav__close" id="nav-close"></i>
             </div>
 
-            <div class="nav__login bounce-in-top">
-                <a href="../login/login.php" id="login__button log_button" class="nav__item button">
-                    <i class="uil uil-user nav__login"></i> Conectarse
-                </a>
-            </div>
-            
-            <div class="nav__login bounce-in-top">
-                <a href="../perfil/miperfil.php" id="login__button profile_button" class="nav__item button">
-                <i class="uil uil-user-circle"></i> Mi Perfil
-                </a>
-            </div>
-
-            <script>
-                const btProfile = document.getElementById('login__button profile_button'),
-                        btLogin = document.getElementById('login__button log_button')
-
-                if (<?php echo isset($_SESSION['log']); ?>) {
-                    btLogin.style.display = "none";
-                    btProfile.style.display = "flex";
-                } else {
-                    btProfile.style.display = "none";
-                    btLogin.style.display = "flex";
+            <?php
+                if (isset($_SESSION['log'])) {
+                    ?>
+                    
+                    <a id="login__button" class="nav__item button bounce-in-top" href="WEB/login/logout.php">
+                    <i class="uil uil-signout"></i>Logout</a>
+                    <div class="nav__login bounce-in-top">
+                        <a href="WEB/perfil/miperfil.php" id="login__button profile_button" class="nav__item button">
+                        <i class="uil uil-user-circle"></i> Mi Perfil
+                        </a>
+                    </div>
+                <?php
+                } else {?>
+                    <div class="nav__login bounce-in-top">
+                        <a href="WEB/login/login.php" id="login__button log_button" class="nav__item button">
+                            <i class="uil uil-user nav__login"></i> Conectarse
+                        </a>
+                    </div>
+                <?php
                 }
-            </script>
+            ?>
             
         </nav>
     </header>
 
+    
     <main class="main">
 
         <section class="main__container">
 
-        <!--Php-->
-            <!--Cada uno de estos se saca de la bd-->
+            <div class="table__container">
             <?php
 
-                include '../../resources/php/db.php';
 
-                $categoria = 3;
+            include '../../resources/php/db.php';
+            try{
+                $nombre = $_POST['nombre'];
+                $stock = $_POST['stock'];
+                $precio = $_POST['precio'];
+                $categoria = 'Verdura';
 
-                $consulta = "SELECT * FROM producto where codigo_tipo_categoria = ? ";
-                $resultado = mysqli_prepare($conexion, $consulta);
+            
+                if ($hasName AND $hasPrecio AND $hasCategoria AND $hasStock){
 
-                if (!$resultado) {
-                    echo "Error".mysqli_error($conexion);
-                }
+                    $tipoPrecio = (int)str_replace("< CLP", "", $precio);
+                    $tipoStock = str_replace("< ", "", $stock);
+                    $tipoStock = (int)str_replace(" Unidades", "", $tipoStock);
 
-                $tabien = mysqli_stmt_bind_param($resultado, "i", $categoria);
+                    $bottVal = 0;
+                    $bottVal2 = 0;
 
-                $tabien = mysqli_stmt_execute($resultado);
+                    $consulta = "SELECT p.codigo, c.tipo, p.nombre, p.descripcion, p.precio, p.imagen, p.cantidad, pu.patente_puesto
+                    FROM producto p, categoria c, puesto pu  WHERE p.nombre = ? AND p.precio BETWEEN (?) AND (?)
+                    AND p.cantidad BETWEEN (?) AND (?) AND c.tipo = ?
+                    AND p.codigo_tipo_categoria = c.codigo AND p.codigo_puesto = pu.codigo";
+                    $resultado = mysqli_prepare($conexion,$consulta);
 
-                if (!$tabien) {
-                    echo "Error";
-                } else {
+                    if (!$resultado) {
+                        echo "Error con resultado";
+                    }
+                    $ok = mysqli_stmt_bind_param($resultado, "siiiis", $nombre, $bottVal, $tipoPrecio, $bottVal2, $tipoStock, $categoria);
+                    $ok = mysqli_stmt_execute($resultado);
 
-                    $tabien = mysqli_stmt_bind_result($resultado, $r_cod, $r_codcat, $r_nombre, $r_descrip, $r_precio, $r_imagen, $r_cantidad, $r_codpues );
+                    if (!$ok){
+                        echo "Error con ok";
+                    }
+                    $ok = mysqli_stmt_bind_result($resultado, $p_cod, $p_categoria, $p_nombre, $p_descripcion, $p_precio, $p_imagen, $p_cantidad, $p_puesto);
+                    echo "Antes while";
+                    while (mysqli_stmt_fetch($resultado)){ ?>
+                        <div class="item__container">
 
-                    while( mysqli_stmt_fetch($resultado) ){
-                        ?>
-<!---->
-<!--==========Codigo HTML==========-->
-                        <div class="product__row">
-                            <div class="product__container producto">
-                                <div class="product__image">
-                                    <img id="imagen" class="product-image" alt="imagen producto" src="<?php echo $r_imagen.""; ?>">
-                                </div>
-                                <div class="product__content">
-                                    <h2 class="product__title"><?php echo $r_nombre.""; ?></h2>
-                                    <span class="product__subtitle">CLP <?php echo $r_precio.""; ?></span>
-                                    <p class="product__description">
-                                        <?php echo  $r_descrip.""; ?>
-                                    </p>
-                                    <span class="product__source">Puesto: <?php echo "".$r_codpues; ?></span>
-                                    <a href="../pago/pago.php?codigo=<?php echo "".$r_cod; ?>" class="buy-item">
-                                        <i class="uil uil-shopping-bag"></i>
-                                    </a>
-                                </div>                
+                            <div class="item_image-container">
+                                <img class="item_image" alt="producto" src="<?php echo "".$p_imagen; ?>">
+                            </div>
+
+                            <div class="item_content">
+                                <h3 class="item_name"><?php echo "".$p_nombre; ?></h3>
+                                <p class="item_description"><?php echo "".$p_categoria ?></p>
+                                <p class="item_description"><?php echo "".$p_descripcion ?></p>
+                                <i class="uil uil-shopping-bag"></i> CLP <?php echo "".$p_precio; ?>
                             </div>
                         </div>
-<!--====================-->
-                        <?php
+                    <?php 
                     }
+                    echo "Fuera while";
                 }
+            } catch (Exception $e) {
+                header("Location: buscador.php?error=TRUE");
+            }
             ?>
-<!--PhpFin-->
+
+            </div>
+        
         </section>
     </main>
 

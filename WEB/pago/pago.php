@@ -17,7 +17,12 @@
 </head>
 
 <body>
-    <?php session_start();?>
+    <?php session_start();
+    
+        if (!isset($_SESSION['nombre'])){
+            header("Location: ../login/login.php");
+        }
+    ?>
     <header class="header" id="header">
         <nav class="nav container">
             

@@ -37,34 +37,39 @@
             $_SESSION['correo'] = $u_correo;
             $codigo_de_usuario = $u_cod;
         }
-    }
 
-    $resultado->free_result();
 
-    $select_cuenta = "SELECT * FROM cuenta WHERE codigo_usuario = ?";
-    $resultado_cuenta = mysqli_prepare($conexion, $select_cuenta);
+        $resultado->free_result();
 
-    $okc = mysqli_stmt_bind_param($resultado_cuenta, "i", $codigo_de_usuario);
-    $okc = mysqli_stmt_execute($resultado_cuenta);
+        $select_cuenta = "SELECT * FROM cuenta WHERE codigo_usuario = ?";
+        $resultado_cuenta = mysqli_prepare($conexion, $select_cuenta);
 
-    $okc = mysqli_stmt_bind_result($resultado_cuenta, $c_cod, $c_cash, $c_user);
-    while (mysqli_stmt_fetch($resultado_cuenta)) {
-        $_SESSION['dinero'] = $c_cash;
-    }
+        $okc = mysqli_stmt_bind_param($resultado_cuenta, "i", $codigo_de_usuario);
+        $okc = mysqli_stmt_execute($resultado_cuenta);
 
-    $resultado_cuenta->free_result();
+        $okc = mysqli_stmt_bind_result($resultado_cuenta, $c_cod, $c_cash, $c_user);
+        while (mysqli_stmt_fetch($resultado_cuenta)) {
+            $_SESSION['dinero'] = $c_cash;
+        }
 
-    $select_tipo_user = "SELECT codigo_tipo_usuario FROM usuario WHERE codigo= ?";
-    $resultado_tipo = mysqli_prepare($conexion, $select_tipo_user);
+        $resultado_cuenta->free_result();
 
-    $okd = mysqli_stmt_bind_param($resultado_tipo, "i", $codigo_de_usuario);
-    $okd = mysqli_stmt_execute($resultado_tipo);
+        $select_tipo_user = "SELECT codigo_tipo_usuario FROM usuario WHERE codigo= ?";
+        $resultado_tipo = mysqli_prepare($conexion, $select_tipo_user);
 
-    $okc = mysqli_stmt_bind_result($resultado_tipo, $codigo_tipo_usuario);
-    while (mysqli_stmt_fetch($resultado_tipo)) {
-        $_SESSION['cod_tipo_usuario'] = $codigo_tipo_usuario;
-    }
+        $okd = mysqli_stmt_bind_param($resultado_tipo, "i", $codigo_de_usuario);
+        $okd = mysqli_stmt_execute($resultado_tipo);
+
+        $okc = mysqli_stmt_bind_result($resultado_tipo, $codigo_tipo_usuario);
+        while (mysqli_stmt_fetch($resultado_tipo)) {
+            $_SESSION['cod_tipo_usuario'] = $codigo_tipo_usuario;
+        }
+        
+        header("Location: ../../index.php?log='TRUE'");
     
-    header("Location: ../../index.php?log='TRUE'");
+    }
+
+    
+
     
 ?>

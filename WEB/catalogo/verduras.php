@@ -146,7 +146,7 @@
 
                 include '../../resources/php/db.php';
 
-                $categoria = 1; /*Verdura es cod 1 y es pa testear OwO*/
+                $categoria = 1;
 
                 $consulta = "SELECT * FROM producto where codigo_tipo_categoria = ? ";
                 $resultado = mysqli_prepare($conexion, $consulta);
@@ -181,7 +181,7 @@
                                         <?php echo  $r_descrip.""; ?>
                                     </p>
                                     <span class="product__source">Puesto: <?php echo "".$r_codpues; ?></span>
-                                    <a href="#" class="buy-item">
+                                    <a href="../pago/pago.php?codigo=<?php echo "".$r_cod; ?>" class="buy-item">
                                         <i class="uil uil-shopping-bag"></i>
                                     </a>
                                 </div>                
@@ -195,6 +195,8 @@
 <!--PhpFin-->
         </section>
     </main>
+
+    
 
     <footer class="footer">
         <div class="footer_bg">

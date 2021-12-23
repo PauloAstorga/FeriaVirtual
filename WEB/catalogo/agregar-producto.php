@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../../resources/css/animations.css" />
     <link rel="stylesheet" type="text/css" href="../../resources/css/hover.css" />
     <link rel="stylesheet" type="text/css" href="../../resources/css/productos.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/css/transaccion.css">
     <link rel="shortcut icon" type="image/x-icon" href="../../resources/images/logo_icono.ico" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> 
     
@@ -17,7 +18,7 @@
 </head>
 
 <body>
-<?php session_start();?>
+<?php session_start(); include '../../resources/php/db.php'; ?>
     <header class="header" id="header">
         <nav class="nav container">
             
@@ -116,22 +117,153 @@
     <main class="main">
 
         <?php
-            $consulta = "SELECT nombre FROM "
+            $consulta = "SELECT tipo FROM categoria";
         ?>
         <section class="main__container">
 
-            <form action="agrega.php" method="POST">
+            <div class="form__container">
+                <div class="title">
+                    <h3>Agregar Producto</h3>
+                </div>
 
-                <input type="text" id="nombre" name="nombre" placeholder="Nombre">
-                <select id="categoria" name="categoria">
-                    <option id="" name="">Seleccione una categoria</option>
-                </select>
-                <textarea id="descripcion" name="descripcion" placeholder="Descripcion"></textarea>
-                <input type="number" id="precio" name="precio" placeholder="Precio">
-                <input type="number" id="cantidad" name="cantidad" placeholder="Cantidad">
-                <input type="file" id="imagen" name="imagen">
+                <form class="form" action="verifica_producto.php" method="POST">
 
-            </form>
+                    <input type="text" id="nombre" name="nombre" placeholder="Nombre">
+                    
+                    <div class="input__container">
+                            <i class="uil uil-sign-alt"></i>
+                            <select id="categoria" name="categoria" required>
+                                <option id="vacio" name="vacio">Seleccione una Categoria</option>
+                                <?php
+                                    $resultado = mysqli_query($conexion, $consulta);
+                                    while ($fila = mysqli_fetch_row($resultado)) {
+                                        ?>
+                                                <option><?php echo "".$fila[0]; ?></option>
+                                                <?php
+                                            }
+                                            $resultado->free_result();
+                                        ?>
+                            </select>
+                    </div>
+                    <textarea id="descripcion" name="descripcion" placeholder="Descripcion"></textarea>
+                    <input type="number" id="precio" name="precio" placeholder="Precio">
+                    <input type="number" id="cantidad" name="cantidad" placeholder="Cantidad">
+                    <input type="text" id="imagen_url" name="imagen_url" placeholder="Url de Imagen">
+                    <input type="text" id="patente" name="patente" placeholder="Patente de Puesto">
+
+                    <input type="submit" id="enviar" name="enviar" value="Agregar Producto">
+
+                </form>
+            </div>
+
+            <div>
+                <div class="title">
+                    <h3>Lista Productos</h3>
+                </div>
+
+                <?php
+
+                    $codigo = $_SESSION['codigo'];
+
+                    $cod_puesto = NULL;
+
+                    $select = "SELECT codigo FROM puesto WHERE codigo_usuario = ?";
+                    $resultado = mysqli_prepare($conexion, $select);
+
+                    if (!$resultado) {
+                        echo "Error".mysqli_error($conexion);
+                    }
+
+                    $tabien = mysqli_stmt_bind_param($resultado, "i", $codigo);
+
+                    $tabien = mysqli_stmt_execute($resultado);
+
+                    if (!$tabien) {
+                        echo "Error";
+                    } else {
+
+                        $tabien = mysqli_stmt_bind_result($resultado, $p_cod);
+                        while( mysqli_stmt_fetch($resultado) ){
+                            $cod_puesto = $p_cod;
+                        }
+
+                        $resultado->free_result();
+
+                        $consulta = "SELECT * FROM producto where codigo_puesto = ? ";
+                        $resultado = mysqli_prepare($conexion, $consulta);
+
+                        if (!$resultado) {
+                            echo "Error".mysqli_error($conexion);
+                        }
+
+                        $tabien = mysqli_stmt_bind_param($resultado, "i", $cod_puesto);
+
+                        $tabien = mysqli_stmt_execute($resultado);
+
+                        if (!$tabien) {
+                            echo "Error";
+                        }
+
+                        $tabien = mysqli_stmt_bind_result($resultado, $p_cod,$p_categoria, $p_nombre, $p_descripcion, $p_precio, $p_imagen, $p_cantidad, $p_cod_puesto);
+
+                        while( mysqli_stmt_fetch($resultado) ){ ?>
+
+                            <div class="table__container">
+                                <table id="table">
+
+                                    <tr id="table_row">
+                                        <td id="table_data">Codigo Producto</td>
+                                        <td id="table_data">Categoria</td>
+                                        <td id="table_data">Nombre</td>
+                                        <td id="table_data">Descripcion</td>
+                                        <td id="table_data">Precio</td>
+                                        <td id="table_data">Cantidad</td>
+                                        <td id="table_data">Codigo Puesto</td>
+                                    </tr>
+
+                                    <tr id="table_row">
+                                        <td id="table_data">
+                                            <?php echo "".$p_cod; ?>
+                                        </td>
+
+                                        <td id="table_data">
+                                            <?php echo "".$p_categoria; ?>
+                                        </td>
+
+                                        <td id="table_data">
+                                            <?php echo "".$p_nombre; ?>
+                                        </td>
+
+                                        <td id="table_data">
+                                            <?php echo "".$p_descripcion; ?>
+                                        </td>
+
+                                        <td id="table_data">
+                                            <?php echo "".$p_precio; ?>
+                                        </td>
+
+                                        <td id="table_data">
+                                            <?php echo "".$p_cantidad; ?>
+                                        </td>
+
+                                        <td id="table_data">
+                                            <?php echo "".$p_cod_puesto; ?>
+                                        </td>
+                                    </tr>
+                                    
+                                </table>
+
+                                <div class="acciones">
+                                    <a href="elimina-productos.php?cod=<?php echo "".$p_cod ?>&puesto=<?php echo "".$cod_puesto; ?>">Eliminar</a>
+                                    <a href="modifica-productos.php?cod=<?php echo "".$p_cod ?>&puesto=<?php echo "".$cod_puesto; ?>">Modificar</a>
+                                </div>
+                            </div>
+                        <?php
+                        }
+                    }
+                        ?>
+                 
+            </div>
         
         </section>
     </main>

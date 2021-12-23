@@ -27,7 +27,7 @@
                 </div>
                     
                 <img alt="FeriaLogo" id="nav__image" class="nav__logo" src="../../resources/images/logo.png">
-                <a href="#" class="nav__logo">Feria Virtual</a>
+                <a href="../../index.php" class="nav__logo">Feria Virtual</a>
             </div>
 
             <div class="nav__menu" id="nav-menu">
@@ -103,31 +103,27 @@
                 <i class="uil uil-times nav__close" id="nav-close"></i>
             </div>
 
-            <div class="nav__login bounce-in-top">
-                <a href="../login/login.php" id="login__button log_button" class="nav__item button">
-                    <i class="uil uil-user nav__login"></i> Conectarse
-                </a>
-            </div>
-            
-            <div class="nav__login bounce-in-top">
-                <a href="../perfil/miperfil.php" id="login__button profile_button" class="nav__item button">
-                <i class="uil uil-user-circle"></i> Mi Perfil
-                </a>
-            </div>
-
-            <script>
-                const btProfile = document.getElementById('login__button profile_button'),
-                        btLogin = document.getElementById('login__button log_button')
-
-                if (<?php echo isset($_SESSION['log']); ?>) {
-                    btLogin.style.display = "none";
-                    btProfile.style.display = "flex";
-                } else {
-                    btProfile.style.display = "none";
-                    btLogin.style.display = "flex";
+            <?php
+                if (isset($_SESSION['log'])) {
+                    ?>
+                    
+                    <a id="login__button" class="nav__item button bounce-in-top" href="../../WEB/login/logout.php">
+                    <i class="uil uil-signout"></i>Logout</a>
+                    <div class="nav__login bounce-in-top">
+                        <a href="WEB/perfil/miperfil.php" id="login__button profile_button" class="nav__item button">
+                        <i class="uil uil-user-circle"></i> Mi Perfil
+                        </a>
+                    </div>
+                <?php
+                } else {?>
+                    <div class="nav__login bounce-in-top">
+                        <a href="../../WEB/login/login.php" id="login__button log_button" class="nav__item button">
+                            <i class="uil uil-user nav__login"></i> Conectarse
+                        </a>
+                    </div>
+                <?php
                 }
-            </script>
-            
+            ?>
         </nav>
     </header>
 

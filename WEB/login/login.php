@@ -142,6 +142,17 @@
                         <div class="login__title">
                             <h1 class="login__title-text">Login</h1>
                         </div>
+
+                        <div class="error_msg">
+                            <?php
+                                if (isset($_GET['log'])){
+                                    if ($_GET['log']=='FALSE') {
+                                        echo '<h4 style="color:red">Credenciales Incorrectas</h4>';
+                                    }
+                                }
+                            ?>
+                        </div>
+
             
                         <form action="verifica_login.php" method="POST" class="form">
             

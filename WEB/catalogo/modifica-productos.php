@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../../resources/css/animations.css" />
     <link rel="stylesheet" type="text/css" href="../../resources/css/hover.css" />
     <link rel="stylesheet" type="text/css" href="../../resources/css/productos.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/css/transaccion.css">
     <link rel="shortcut icon" type="image/x-icon" href="../../resources/images/logo_icono.ico" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> 
     
@@ -17,7 +18,7 @@
 </head>
 
 <body>
-    
+<?php session_start(); include '../../resources/php/db.php'; ?>
     <header class="header" id="header">
         <nav class="nav container">
             
@@ -89,15 +90,10 @@
                         <a href="#" class="nav__link">
                             <i class="uil uil-truck"></i> Entregas <i class="uil uil-arrow-right"></i>
                             <ul class="nav__sublist nav__subdeliver">
-                                <li class="nav__subitem">
-                                    <a href="#" class="nav__link">
-                                        <i class="uil uil-parcel"></i> Orden de Seguimiento 
-                                    </a>                                    
-                                </li>
 
                                 <li class="nav__subitem">
-                                    <a href="#" class="nav__link">
-                                        <i class="uil uil-truck"></i> Nuestros Proveedores
+                                    <a href="../entregas/nuestros-repartidores.php" class="nav__link">
+                                        <i class="uil uil-truck"></i> Nuestros Repartidores
                                     </a>                                    
                                 </li>
                             </ul>
@@ -109,90 +105,87 @@
             </div>
 
             <div class="nav__login bounce-in-top">
-                <a href="../login/login.php" id="login__button log_button" class="nav__item button">
+                <a href="WEB/login/login.php" id="login__button" class="nav__item button">
                     <i class="uil uil-user nav__login"></i> Conectarse
                 </a>
             </div>
             
-            <div class="nav__login bounce-in-top">
-                <a href="../perfil/miperfil.php" id="login__button profile_button" class="nav__item button">
-                <i class="uil uil-user-circle"></i> Mi Perfil
-                </a>
-            </div>
-
-            <script>
-                const btProfile = document.getElementById('login__button profile_button'),
-                        btLogin = document.getElementById('login__button log_button')
-
-                if (<?php echo isset($_SESSION['log']); ?>) {
-                    btLogin.style.display = "none";
-                    btProfile.style.display = "flex";
-                } else {
-                    btProfile.style.display = "none";
-                    btLogin.style.display = "flex";
-                }
-            </script>
-            
         </nav>
     </header>
 
+    
     <main class="main">
 
+        <?php
+
+            $codigo = $_GET['cod'];
+            $puesto = $_GET['puesto'];
+
+            $consulta = "SELECT * FROM producto WHERE codigo = ? AND codigo_puesto = ?";
+            $resultado = mysqli_prepare($conexion, $consulta);
+
+            if (!$resultado) {
+                echo "Error con resultado: ".mysqli_error($conexion);
+            }
+
+            $ok = mysqli_stmt_bind_param($resultado, "ii", $codigo, $puesto);
+            $ok = mysqli_stmt_execute($resultado);
+
+            if (!$ok) {
+                echo "Error con ok: ".mysqli_error($conexion);
+            }
+
+            $ok = mysqli_stmt_bind_result($resultado, $cod, $categoria, $nombre, $descripcion, $precio, $imagen, $cantidad, $codpues);
+
+            while(mysqli_stmt_fetch($resultado)) {
+
+            
+        ?>
         <section class="main__container">
 
-        <!--Php-->
-            <!--Cada uno de estos se saca de la bd-->
+            <div class="form__container">
+                <div class="title">
+                    <h3>Modificar Producto</h3>
+                </div>
+
+                <form class="form" action="edita-producto.php" method="POST">
+
+                    <input disabled type="text" name="code" id="code" value="<?php echo "".$cod; ?>">
+                    <input type="hidden" id="codigo" name="codigo" value="<?php echo "".$cod; ?>">
+                    <input type="text" id="nombre" name="nombre" value="<?php echo "".$nombre; ?>">
+                    
+                    <div class="input__container">
+                            <i class="uil uil-sign-alt"></i>
+                            <select id="categoria" name="categoria" required>
+                                <option id="vacio" name="vacio">Seleccione una Categoria</option>
+                                <?php
+                                    $resultado->free_result();
+
+                                    $consulta = "SELECT tipo FROM categoria";
+                                    $resultado2 = mysqli_query($conexion, $consulta);
+                                    while ($fila = mysqli_fetch_row($resultado2)) {
+                                        ?>
+                                                <option><?php echo "".$fila[0]; ?></option>
+                                                <?php
+                                            }
+                                            $resultado2->free_result();
+                                        ?>
+                            </select>
+                    </div>
+                    <textarea id="descripcion" name="descripcion" >
+                        <?php echo "".$descripcion ?>
+                    </textarea>
+                    <input type="number" id="precio" name="precio" value="<?php echo "".$precio ?>">
+                    <input type="number" id="cantidad" name="cantidad" value="<?php echo "".$cantidad ?>">
+                    <input type="text" id="imagen_url" name="imagen_url" value="<?php echo "".$imagen ?>">
+                    
+                    <input type="submit" id="enviar" name="enviar" value="Modificar Producto">
+
+                </form>
+            </div>
             <?php
-
-                include '../../resources/php/db.php';
-
-                $categoria = 3;
-
-                $consulta = "SELECT * FROM producto where codigo_tipo_categoria = ? ";
-                $resultado = mysqli_prepare($conexion, $consulta);
-
-                if (!$resultado) {
-                    echo "Error".mysqli_error($conexion);
-                }
-
-                $tabien = mysqli_stmt_bind_param($resultado, "i", $categoria);
-
-                $tabien = mysqli_stmt_execute($resultado);
-
-                if (!$tabien) {
-                    echo "Error";
-                } else {
-
-                    $tabien = mysqli_stmt_bind_result($resultado, $r_cod, $r_codcat, $r_nombre, $r_descrip, $r_precio, $r_imagen, $r_cantidad, $r_codpues );
-
-                    while( mysqli_stmt_fetch($resultado) ){
-                        ?>
-<!---->
-<!--==========Codigo HTML==========-->
-                        <div class="product__row">
-                            <div class="product__container producto">
-                                <div class="product__image">
-                                    <img id="imagen" class="product-image" alt="imagen producto" src="<?php echo $r_imagen.""; ?>">
-                                </div>
-                                <div class="product__content">
-                                    <h2 class="product__title"><?php echo $r_nombre.""; ?></h2>
-                                    <span class="product__subtitle">CLP <?php echo $r_precio.""; ?></span>
-                                    <p class="product__description">
-                                        <?php echo  $r_descrip.""; ?>
-                                    </p>
-                                    <span class="product__source">Puesto: <?php echo "".$r_codpues; ?></span>
-                                    <a href="../pago/pago.php?codigo=<?php echo "".$r_cod; ?>" class="buy-item">
-                                        <i class="uil uil-shopping-bag"></i>
-                                    </a>
-                                </div>                
-                            </div>
-                        </div>
-<!--====================-->
-                        <?php
-                    }
-                }
+            }
             ?>
-<!--PhpFin-->
         </section>
     </main>
 

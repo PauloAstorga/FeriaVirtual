@@ -148,7 +148,7 @@
                         
                         <input type="text" id="direccion" name="direccion" value="<?php echo $codigo_direccion ?>">
 
-                        <input type="submit" id="enviar" name="enviar" value="Crear Puesto">
+                        <input type="submit" id="enviar" name="enviar" value="Modificar Puesto">
                     </form>
                 </div>
             <?php

@@ -49,37 +49,13 @@
 
                                 <li class="nav__subitem">
                                     <a href="WEB/catalogo/nuestros-productos.php" class="nav__link">
-                                        <i class="uil uil-rainbow"></i> Todos los Productos
+                                        <i class="uil uil-postcard"></i> Todos los Productos
                                     </a>
                                 </li>
 
                                 <li class="nav__subitem">
-                                    <a href="WEB/catalogo/frutos-secos.php" class="nav__link">
-                                        <i class="uil uil-rainbow"></i> Frutos Secos
-                                    </a>
-                                </li>
-                                    
-                                <li class="nav__subitem">
-                                    <a href="WEB/catalogo/frutas.php" class="nav__link">
-                                        <i class="uil uil-wind-sun"></i> Frutas
-                                    </a>
-                                </li>
-
-                                <li class="nav__subitem">
-                                    <a href="WEB/catalogo/verduras.php" class="nav__link">
-                                        <i class="uil uil-cloud-showers-heavy"></i> Verduras
-                                    </a>
-                                </li>
-
-                                <li class="nav__subitem">
-                                    <a href="WEB/catalogo/carnes.php" class="nav__link">
-                                        <i class="uil uil-cloud-showers-heavy"></i> Carnes
-                                    </a>
-                                </li>
-
-                                <li class="nav__subitem">
-                                    <a href="WEB/catalogo/varios.php" class="nav__link">
-                                        <i class="uil uil-cloud-showers-heavy"></i> Varios
+                                    <a href="WEB/catalogo/buscador.php" class="nav__link">
+                                        <i class="uil uil-search"></i> Buscador
                                     </a>
                                 </li>
                             </ul>
@@ -100,11 +76,19 @@
                         </a>
                     </li>
 
-                    <li class="nav__item nav__account">
-                        <a href="WEB/pago/transacciones.php" class="nav__link">
-                            <i class="uil uil-analytics"></i> Cuenta
-                        </a>
-                    </li>
+
+                    <?php
+                        if (isset($_SESSION['log'])) {
+                    ?>
+                            <li class="nav__item nav__account">
+                                <a href="WEB/pago/transacciones.php" class="nav__link">
+                                    <i class="uil uil-analytics"></i> Cuenta
+                                </a>
+                            </li>
+                    <?php
+                        }
+                    ?> 
+                    
 
                     <?php
                         if (isset($_SESSION['nombre'])) {
@@ -120,56 +104,32 @@
                     ?>
                 </ul>
 
-                <?php
-                
-                    if (isset($_SESSION['nombre'])) {?>
-                    
-                        <div class="user_name">
-                            <?php
-                            echo "<div class='user__info'>";
-                            echo "".$_SESSION['nombre'];
-                            echo "</div>";
-                            ?>
-                        </div>
-
-                        <div class="user_mail">
-                            <?php
-                            echo "".$_SESSION['correo'];
-                            ?>
-                        </div>
-                    <?php
-                    }
-                ?>
-
                 <i class="uil uil-times nav__close" id="nav-close"></i>
             </div>
 
-            
-            <div class="nav__login bounce-in-top">
-                <a href="WEB/login/login.php" id="login__button log_button" class="nav__item button">
-                    <i class="uil uil-user nav__login"></i> Conectarse
-                </a>
-            </div>
-
-            <div class="nav__login bounce-in-top">
-                <a href="WEB/perfil/miperfil.php" id="login__button profile_button" class="nav__item button">
-                <i class="uil uil-user-circle"></i> Mi Perfil
-                </a>
-            </div>
-
-            <script>
-                const btProfile = document.getElementById('login__button profile_button'),
-                        btLogin = document.getElementById('login__button log_button')
-
-                if (<?php echo "".$_SESSION['log']; ?>) {
-                    btLogin.style.display = "none";
-                    btProfile.style.display = "flex";
-                } else {
-                    btProfile.style.display = "none";
-                    btLogin.style.display = "flex";
+            <div class="log_buttons">
+            <?php
+                if (isset($_SESSION['log'])) {
+                    ?>
+                    
+                    <a id="login__button" class="nav__item button bounce-in-top" href="WEB/login/logout.php">
+                    <i class="uil uil-signout"></i>Logout</a>
+                    <div class="nav__login bounce-in-top">
+                        <a href="WEB/perfil/miperfil.php" id="login__button profile_button" class="nav__item button">
+                        <i class="uil uil-user-circle"></i> Perfil
+                        </a>
+                    </div>
+                <?php
+                } else {?>
+                    <div class="nav__login bounce-in-top">
+                        <a href="WEB/login/login.php" id="login__button log_button" class="nav__item button">
+                            <i class="uil uil-user nav__login"></i> Conectarse
+                        </a>
+                    </div>
+                <?php
                 }
-            </script>
-            
+            ?>
+            </div>
         </nav>
     </header>
 

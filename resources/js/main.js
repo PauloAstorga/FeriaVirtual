@@ -134,7 +134,7 @@ if (createLog) {
     createLog.addEventListener('click', () =>{/*Dentro de login, al hacer click sobre crear*/
         flipCardInner.classList.add('flip-animation')
         recoverFlip.classList.add('flip-hide')
-        formContainer.style.height = "1000px"
+        formContainer.style.height = "1170px"
     })
 }
 
